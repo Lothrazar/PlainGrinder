@@ -64,11 +64,13 @@ public class ModRegistry {
     IForgeRegistry<Item> r = event.getRegistry();
     r.register(new BlockItem(B_GRINDER, new Item.Properties().group(GROUP)).setRegistryName("grinder"));
     r.register(new BlockItem(B_HANDLE, new Item.Properties().group(GROUP)).setRegistryName("handle"));
-    r.register(new Item(new Item.Properties().group(GROUP)).setRegistryName("dust_coal"));
+    r.register(new ItemDustBurnable(new Item.Properties().group(GROUP)).setRegistryName("dust_coal"));
     r.register(new Item(new Item.Properties().group(GROUP)).setRegistryName("dust_diamond"));
     r.register(new Item(new Item.Properties().group(GROUP)).setRegistryName("dust_gold"));
     r.register(new Item(new Item.Properties().group(GROUP)).setRegistryName("dust_iron"));
     r.register(new Item(new Item.Properties().group(GROUP)).setRegistryName("dust_emerald"));
     r.register(new Item(new Item.Properties().group(GROUP)).setRegistryName("dust_lapis"));
+    r.register(new ItemDustBurnable(new Item.Properties().group(GROUP)).setRegistryName("dust_charcoal"));
+    r.register(new Item(new Item.Properties().group(GROUP)).setRegistryName("dust_quartz"));
   }
 }

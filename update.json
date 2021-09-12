@@ -10,5 +10,6 @@
     "1.0.1":"Fix error in log file referencing item dust_quartz that does not exist (bad default recipe).  Added the standard 'Show Recipes' click area on the grinder screen that loads all recipes for the block (same as furnace).   Suggested minimum forge version 36.1.0"
   	,"1.0.2":"Move JEI Show Recipe area tooltip.  Updated to forge 36.2.0"
   	,"1.1.0":"Added missing dust item tags.  Grinder Base renamed to Plain Grinder.  Added optional/conditional recipes for some thermal and mekanism ores (osmium/copper/etc) "
+  	,"1.2.0":"New textures by Lylythii.  New items: Quartz Dust and Charcoal Dust.  Added several recipes such as blaze, bonemeal.  Coal and Charcoal dust can be used as furnace fuel directly. "
   }
 }

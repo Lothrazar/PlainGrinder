@@ -1,10 +1,10 @@
 {
   "type": "plaingrinder:grinder",
   "input": {
-    "tag": "forge:ores/quartz"
+    "item": "minecraft:prismarine"
   },
   "result": {
-    "item": "plaingrinder:dust_quartz",
+    "item": "minecraft:prismarine_shard",
     "count": 4
   }
 }
