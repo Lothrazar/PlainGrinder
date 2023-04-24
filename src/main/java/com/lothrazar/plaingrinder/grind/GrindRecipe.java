@@ -5,6 +5,7 @@ import java.util.Set;
 import com.google.gson.JsonObject;
 import com.lothrazar.plaingrinder.ModMain;
 import com.lothrazar.plaingrinder.ModRegistry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -21,7 +22,7 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
   private static final Set<String> HASHES = new HashSet<>();
   public static final Set<GrindRecipe> RECIPES = new HashSet<>();
   private final ResourceLocation id;
-  public Ingredient input = Ingredient.EMPTY;
+  private Ingredient input = Ingredient.EMPTY;
   private ItemStack result = ItemStack.EMPTY;
 
   public GrindRecipe(ResourceLocation id, Ingredient input, ItemStack result) {
@@ -29,6 +30,10 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
     this.id = id;
     this.input = input;
     this.result = result;
+  }
+
+  public Ingredient getInput() {
+    return input;
   }
 
   @Override
@@ -43,13 +48,8 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
 
   public static boolean matchingStacks(ItemStack current, ItemStack in) {
     //first one fails if size is off
-    return ItemStack.isSameIgnoreDurability(current, in)
+    return ItemStack.isSame(current, in) // isSameIgnoreDurability
         && ItemStack.tagMatches(current, in);
-  }
-
-  @Override
-  public ItemStack assemble(BlockEntityGrinder inv) {
-    return getResultItem();
   }
 
   @Override
@@ -58,7 +58,16 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
   }
 
   @Override
-  public ItemStack getResultItem() {
+  public ItemStack assemble(BlockEntityGrinder inv, RegistryAccess ra) {
+    return getResultItem(ra);
+  }
+
+  @Override
+  public ItemStack getResultItem(RegistryAccess ra) {
+    return result.copy();
+  }
+
+  public ItemStack getResultForDisplay() {
     return result.copy();
   }
 
@@ -76,7 +85,6 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
   public RecipeSerializer<?> getSerializer() {
     return ModRegistry.GRINDER_RECIPE_SERIALIZER.get();
   }
-
 
   public static class SerializeGrinderRecipe implements RecipeSerializer<GrindRecipe> {
 
@@ -112,7 +120,7 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
     @Override
     public void toNetwork(FriendlyByteBuf buffer, GrindRecipe recipe) {
       recipe.input.toNetwork(buffer);
-      buffer.writeItem(recipe.getResultItem());
+      buffer.writeItem(recipe.result);
     }
   }
 

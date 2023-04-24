@@ -3,6 +3,7 @@ package com.lothrazar.plaingrinder.grind;
 import com.lothrazar.plaingrinder.ModMain;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -42,7 +43,7 @@ public class ScreenGrinder extends AbstractContainerScreen<ContainerGrinder> {
     //    this.minecraft.getTextureManager().bindForSetup(gui);
     int relX = (this.width - this.imageWidth) / 2;
     int relY = (this.height - this.imageHeight) / 2;
-    this.blit(ms, relX, relY, 0, 0, this.imageWidth, this.imageHeight);
+    GuiComponent.blit(ms, relX, relY, 0, 0, this.imageWidth, this.imageHeight);
     this.drawSlot(ms, 54, 34);
     this.drawSlot(ms, 108, 34);
   }

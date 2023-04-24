@@ -41,8 +41,8 @@ public class RecipeCat implements IRecipeCategory<GrindRecipe> {
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, GrindRecipe recipe, IFocusGroup focuses) {
-    builder.addSlot(RecipeIngredientRole.INPUT, 4, 19).addIngredients(recipe.input);
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 108, 19).addItemStack(recipe.getResultItem());
+    builder.addSlot(RecipeIngredientRole.INPUT, 4, 19).addIngredients(recipe.getInput());
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 108, 19).addItemStack(recipe.getResultForDisplay());
   }
 
   @Override

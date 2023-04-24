@@ -17,8 +17,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -67,7 +67,7 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
         //server so process
         this.inputSlots.getStackInSlot(0).shrink(1);
         //and then insert it for real 
-        this.outputSlots.insertItem(0, currentRecipe.assemble(this), false);
+        this.outputSlots.insertItem(0, currentRecipe.assemble(this, level.registryAccess()), false);
         //and sound on the trigger
         level.levelEvent((Player) null, 1042, worldPosition, 0);
       }
@@ -76,7 +76,7 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
 
   private boolean tryProcessRecipe(GrindRecipe currentRecipe) {
     // ok so do the thing
-    ItemStack result = currentRecipe.assemble(this);
+    ItemStack result = currentRecipe.assemble(this, level.registryAccess());
     //does it match? does it fit into the output slot 
     //insert in simulate mode. does it fit?
     if (this.outputSlots.insertItem(0, result, true).isEmpty()) {
@@ -114,7 +114,7 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
 
   @Override
   public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-    if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+    if (cap == ForgeCapabilities.ITEM_HANDLER // CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
         && ConfigManager.AUTOMATION_ALLOWED.get()) {
       return inventoryCap.cast();
     }
