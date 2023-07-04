@@ -12,25 +12,25 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(ModMain.MODID)
-public class ModMain {
+@Mod(ModPlainGrinder.MODID)
+public class ModPlainGrinder {
 
   public static final String MODID = "plaingrinder";
   public static final Logger LOGGER = LogManager.getLogger();
 
-  public ModMain() {
-    ConfigManager.setup();
+  public ModPlainGrinder() {
+    new ConfigPlainGrinder();
     FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
     FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
     //https://github.com/Minecraft-Forge-Tutorials/Custom-Json-Recipes/blob/master/src/main/java/net/darkhax/customrecipeexample/CustomRecipesMod.java
     //    FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(RecipeSerializer.class, ModMain::registerRecipeSerializers);
     IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-    ModRegistry.ITEMS.register(eventBus);
-    ModRegistry.BLOCKS.register(eventBus);
-    ModRegistry.MENUS.register(eventBus);
-    ModRegistry.TILES.register(eventBus);
-    ModRegistry.RECIPE_TYPES.register(eventBus);
-    ModRegistry.RECIPE_SERIALIZERS.register(eventBus);
+    RegistryGrinder.ITEMS.register(eventBus);
+    RegistryGrinder.BLOCKS.register(eventBus);
+    RegistryGrinder.MENUS.register(eventBus);
+    RegistryGrinder.TILES.register(eventBus);
+    RegistryGrinder.RECIPE_TYPES.register(eventBus);
+    RegistryGrinder.RECIPE_SERIALIZERS.register(eventBus);
   }
 
   //todo: mekanism and thermal built in support
@@ -44,7 +44,7 @@ public class ModMain {
   private void setupClient(final FMLClientSetupEvent event) {
     //for client side only setup
     event.enqueueWork(() -> {
-      MenuScreens.register(ModRegistry.MENU.get(), ScreenGrinder::new);
+      MenuScreens.register(RegistryGrinder.MENU.get(), ScreenGrinder::new);
     });
   }
   //  public static void registerRecipeSerializers(Register<RecipeSerializer<?>> event) {

@@ -1,8 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "s s",
     "sis",
+    "sgs",
     "sss"
   ],
   "key": {
@@ -11,6 +11,9 @@
     },
     "i": {
       "item": "minecraft:iron_nugget"
+    },
+    "g": {
+      "item": "minecraft:grindstone"
     }
   },
   "result": {

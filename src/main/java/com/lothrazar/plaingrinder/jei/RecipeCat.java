@@ -1,7 +1,7 @@
 package com.lothrazar.plaingrinder.jei;
 
-import com.lothrazar.plaingrinder.ModMain;
-import com.lothrazar.plaingrinder.ModRegistry;
+import com.lothrazar.plaingrinder.ModPlainGrinder;
+import com.lothrazar.plaingrinder.RegistryGrinder;
 import com.lothrazar.plaingrinder.grind.GrindRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -15,13 +15,13 @@ import net.minecraft.resources.ResourceLocation;
 
 public class RecipeCat implements IRecipeCategory<GrindRecipe> {
 
-  public static final ResourceLocation ID = new ResourceLocation(ModRegistry.GRINDER_RECIPE_TYPE.getId().toString());
+  public static final ResourceLocation ID = new ResourceLocation(RegistryGrinder.GRINDER_RECIPE_TYPE.getId().toString());
   private IDrawable gui;
   private IDrawable icon;
 
   public RecipeCat(IGuiHelper helper) {
-    gui = helper.drawableBuilder(new ResourceLocation(ModMain.MODID, "textures/gui/jei.png"), 0, 0, 169, 69).setTextureSize(169, 69).build();
-    icon = helper.drawableBuilder(new ResourceLocation(ModMain.MODID, "textures/block/grinder_top.png"), 0, 0, 16, 16).setTextureSize(16, 16).build();
+    gui = helper.drawableBuilder(new ResourceLocation(ModPlainGrinder.MODID, "textures/gui/jei.png"), 0, 0, 169, 69).setTextureSize(169, 69).build();
+    icon = helper.drawableBuilder(new ResourceLocation(ModPlainGrinder.MODID, "textures/block/grinder_top.png"), 0, 0, 16, 16).setTextureSize(16, 16).build();
   }
 
   @Override
@@ -36,7 +36,7 @@ public class RecipeCat implements IRecipeCategory<GrindRecipe> {
 
   @Override
   public Component getTitle() {
-    return Component.translatable(ModRegistry.GRINDER.get().getDescriptionId());
+    return Component.translatable(RegistryGrinder.GRINDER.get().getDescriptionId());
   }
 
   @Override

@@ -1,6 +1,6 @@
 package com.lothrazar.plaingrinder.data;
 
-import com.lothrazar.plaingrinder.ModRegistry;
+import com.lothrazar.plaingrinder.RegistryGrinder;
 import com.lothrazar.plaingrinder.grind.BlockEntityGrinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,9 +23,9 @@ public class GrindEvents {
     Player player = event.getEntity();
     Level world = player.getCommandSenderWorld();
     BlockState state = world.getBlockState(pos);
-    if (state.getBlock() == ModRegistry.handle.get()) {
+    if (state.getBlock() == RegistryGrinder.handle.get()) {
       BlockState below = world.getBlockState(pos.below());
-      if (below.getBlock() == ModRegistry.GRINDER.get()) {
+      if (below.getBlock() == RegistryGrinder.GRINDER.get()) {
         //do the thing
         BlockEntityGrinder tile = (BlockEntityGrinder) world.getBlockEntity(pos.below());
         if (tile.canGrind()) {

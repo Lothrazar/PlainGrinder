@@ -1,7 +1,7 @@
 package com.lothrazar.plaingrinder.grind;
 
 import java.util.List;
-import com.lothrazar.plaingrinder.ModRegistry;
+import com.lothrazar.plaingrinder.RegistryGrinder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -44,7 +44,7 @@ public class BlockGrinder extends BaseEntityBlock {
 
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-    return createTickerHelper(type, ModRegistry.TE_GRINDER.get(), world.isClientSide ? BlockEntityGrinder::clientTick : BlockEntityGrinder::serverTick);
+    return createTickerHelper(type, RegistryGrinder.TE_GRINDER.get(), world.isClientSide ? BlockEntityGrinder::clientTick : BlockEntityGrinder::serverTick);
   }
 
   @Override

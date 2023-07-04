@@ -15,7 +15,7 @@ issueTrackerURL="https://github.com/Lothrazar/PlainGrinder/issues" #optional
 # The modid of the mod
 modId="plaingrinder" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="${file.jarVersion}" #mandatory
+version="${mod_version}" #mandatory
  # A display name for the mod
  
 displayName="plaingrinder" #mandatory
@@ -25,7 +25,7 @@ updateJSONURL="https://raw.githubusercontent.com/Lothrazar/PlainGrinder/trunk/1.
 displayURL="https://www.curseforge.com/minecraft/mc-mods/plain-grinder"
 
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="logoFile.png" #optional
+logoFile="" #optional
 # A text field displayed in the mod UI
 credits="Thanks to forge fml mcp Mojang" #optional
 # A text field displayed in the mod UI
@@ -42,7 +42,7 @@ plaingrinder by Lothrazar, Lylythii
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[41.1.0,)" #mandatory
+    versionRange="[46,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -51,12 +51,12 @@ plaingrinder by Lothrazar, Lylythii
 [[dependencies.plaingrinder]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19,)"
+    versionRange="[1.20.1,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.plaingrinder]]
     modId="flib"
     mandatory=true
-    versionRange="[0.0.4,)"
+    versionRange="[0.0.5,)"
     ordering="NONE"
     side="BOTH"

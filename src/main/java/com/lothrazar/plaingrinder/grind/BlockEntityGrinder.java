@@ -1,7 +1,7 @@
 package com.lothrazar.plaingrinder.grind;
 
-import com.lothrazar.plaingrinder.ConfigManager;
-import com.lothrazar.plaingrinder.ModRegistry;
+import com.lothrazar.plaingrinder.ConfigPlainGrinder;
+import com.lothrazar.plaingrinder.RegistryGrinder;
 import com.lothrazar.plaingrinder.data.ItemStackHandlerWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -35,7 +35,7 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
   private int emptyHits = 0;
 
   public BlockEntityGrinder(BlockPos pos, BlockState state) {
-    super(ModRegistry.TE_GRINDER.get(), pos, state);
+    super(RegistryGrinder.TE_GRINDER.get(), pos, state);
   }
 
   private void tick() {
@@ -50,7 +50,7 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
   }
 
   public boolean canProcessOre() {
-    return stage == ConfigManager.MAX_STAGE.get();
+    return stage == ConfigPlainGrinder.MAX_STAGE.get();
   }
 
   private void doProcess() {
@@ -115,7 +115,7 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
   @Override
   public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
     if (cap == ForgeCapabilities.ITEM_HANDLER // CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-        && ConfigManager.AUTOMATION_ALLOWED.get()) {
+        && ConfigPlainGrinder.AUTOMATION_ALLOWED.get()) {
       return inventoryCap.cast();
     }
     return super.getCapability(cap, side);
@@ -132,16 +132,16 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
   }
 
   public void incrementGrind() {
-    timer = ConfigManager.TIMER_COOLDOWN.get(); //restart to allow another rotation
+    timer = ConfigPlainGrinder.TIMER_COOLDOWN.get(); //restart to allow another rotation
     stage++;
-    if (stage > ConfigManager.MAX_STAGE.get()) {
-      stage = ConfigManager.MAX_STAGE.get();
+    if (stage > ConfigPlainGrinder.MAX_STAGE.get()) {
+      stage = ConfigPlainGrinder.MAX_STAGE.get();
     }
     if (this.inputIsEmpty()) {
       //only track empty if its breakable
       this.emptyHits++;
-      if (ConfigManager.BREAKABLE_HANDLE.get() &&
-          this.emptyHits > ConfigManager.MAX_STAGE.get() * MULT_OF_MAX_STAGE_BREAKSTUFF) {
+      if (ConfigPlainGrinder.BREAKABLE_HANDLE.get() &&
+          this.emptyHits > ConfigPlainGrinder.MAX_STAGE.get() * MULT_OF_MAX_STAGE_BREAKSTUFF) {
         this.breakHandleAboveMe();
       }
     }
@@ -152,7 +152,7 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
 
   private void breakHandleAboveMe() {
     BlockState state = level.getBlockState(worldPosition.above());
-    if (state.getBlock() == ModRegistry.handle.get()) {
+    if (state.getBlock() == RegistryGrinder.handle.get()) {
       level.destroyBlock(worldPosition.above(), true);
       this.emptyHits = 0;
     }

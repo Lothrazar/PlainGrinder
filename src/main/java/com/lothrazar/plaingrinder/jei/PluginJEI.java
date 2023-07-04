@@ -1,8 +1,8 @@
 package com.lothrazar.plaingrinder.jei;
 
 import java.util.List;
-import com.lothrazar.plaingrinder.ModMain;
-import com.lothrazar.plaingrinder.ModRegistry;
+import com.lothrazar.plaingrinder.ModPlainGrinder;
+import com.lothrazar.plaingrinder.RegistryGrinder;
 import com.lothrazar.plaingrinder.grind.GrindRecipe;
 import com.lothrazar.plaingrinder.grind.ScreenGrinder;
 import mezz.jei.api.IModPlugin;
@@ -19,18 +19,18 @@ import net.minecraft.world.item.ItemStack;
 @JeiPlugin
 public class PluginJEI implements IModPlugin {
 
-  private static final ResourceLocation ID = new ResourceLocation(ModMain.MODID, "jei");
+  private static final ResourceLocation ID = new ResourceLocation(ModPlainGrinder.MODID, "jei");
 
   @Override
   public ResourceLocation getPluginUid() {
     return ID;
   }
 
-  static RecipeType<GrindRecipe> recipeTypeJei = RecipeType.create(ModMain.MODID, "grinder", GrindRecipe.class);
+  static RecipeType<GrindRecipe> recipeTypeJei = RecipeType.create(ModPlainGrinder.MODID, "grinder", GrindRecipe.class);
 
   @Override
   public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-    registration.addRecipeCatalyst(new ItemStack(ModRegistry.igrinder.get()), recipeTypeJei);
+    registration.addRecipeCatalyst(new ItemStack(RegistryGrinder.igrinder.get()), recipeTypeJei);
   }
 
   @Override

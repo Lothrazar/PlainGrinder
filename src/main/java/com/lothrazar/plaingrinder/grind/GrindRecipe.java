@@ -3,8 +3,8 @@ package com.lothrazar.plaingrinder.grind;
 import java.util.HashSet;
 import java.util.Set;
 import com.google.gson.JsonObject;
-import com.lothrazar.plaingrinder.ModMain;
-import com.lothrazar.plaingrinder.ModRegistry;
+import com.lothrazar.plaingrinder.ModPlainGrinder;
+import com.lothrazar.plaingrinder.RegistryGrinder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -47,9 +47,9 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
   }
 
   public static boolean matchingStacks(ItemStack current, ItemStack in) {
-    //first one fails if size is off
-    return ItemStack.isSame(current, in) // isSameIgnoreDurability
-        && ItemStack.tagMatches(current, in);
+    //first one fails if size is off 
+    return ItemStack.isSameItem(current, in) // isSameIgnoreDurability
+        && ItemStack.isSameItemSameTags(current, in);
   }
 
   @Override
@@ -78,12 +78,12 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
 
   @Override
   public RecipeType<?> getType() {
-    return ModRegistry.GRINDER_RECIPE_TYPE.get();
+    return RegistryGrinder.GRINDER_RECIPE_TYPE.get();
   }
 
   @Override
   public RecipeSerializer<?> getSerializer() {
-    return ModRegistry.GRINDER_RECIPE_SERIALIZER.get();
+    return RegistryGrinder.GRINDER_RECIPE_SERIALIZER.get();
   }
 
   public static class SerializeGrinderRecipe implements RecipeSerializer<GrindRecipe> {
@@ -104,7 +104,7 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
         return r;
       }
       catch (Exception e) {
-        ModMain.LOGGER.error("Error loading recipe" + recipeId, e);
+        ModPlainGrinder.LOGGER.error("Error loading recipe" + recipeId, e);
         return null;
       }
     }
@@ -131,7 +131,7 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
     }
     RECIPES.add(r);
     HASHES.add(id.toString());
-    ModMain.LOGGER.info("Recipe loaded " + id.toString());
+    ModPlainGrinder.LOGGER.info("Recipe loaded " + id.toString());
     return true;
   }
 }
