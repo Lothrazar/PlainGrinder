@@ -2,7 +2,9 @@
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/plain-grinder",
   "promos": {
     "1.18.2-latest": "1.2.4",
-    "1.19-latest": "1.2.5"
+    "1.19.2-latest": "1.2.6",
+    "1.19.4-latest": "1.2.6",
+    "1.20.1-latest": "1.2.6"
   },
   "1.19":{
   	"1.2.4":"Ported",
@@ -15,5 +17,15 @@
  	,"1.2.2":"Blast furnace recipes added for smelting dust"
     ,"1.2.3": "Fix grinder deleting items on world reload"
     ,"1.2.4":" Fix usage of save() #5 and update JEI compat [MrBysco] ; forge-39.0.79 , jei-1.18.1:9.2.1.69 "
+  },
+  "1.19.2":{
+  	"1.2.6":"Ported to mc1.19.2"
+  },
+  "1.19.4":{
+  	"1.2.6":"Ported to mc1.19.4"
+  },
+  "1.20.1":{
+  	"1.2.6":"Ported to mc1.20.1",
+  	"1.3.0":"Internals upgraded to neoforged (fully compatible)"
   }
 }
