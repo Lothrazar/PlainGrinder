@@ -1,20 +1,16 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-    //    maven { url = 'https://dist.creeper.host/Sponge/maven' }
-        jcenter()
+        maven { url = 'https://maven.minecraftforge.net/' }
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-    //    classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply plugin: 'checkstyle'
 
 import net.minecraftforge.gradle.common.tasks.SignJar
 import groovy.json.JsonSlurper
@@ -26,13 +22,7 @@ archivesBaseName = 'plaingrinder'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
-checkstyle {
-    toolVersion '8.23'
-    config project.resources.text.fromUri("https://raw.githubusercontent.com/Lothrazar/Cyclic/trunk/1.16/checkstyle.xml")
-}
-checkstyleMain {
-    source ='src/main/java'
-}
+
 
 minecraft {
     // The mappings can be changed at any time, and must be in the following format.
@@ -43,7 +33,7 @@ minecraft {
     
     mappings channel: 'snapshot', version: mappings_version
  
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+   // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
@@ -95,20 +85,28 @@ dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
  
     implementation fg.deobf("mezz.jei:${jei_version}")
+    
+    
 
- 	  implementation fg.deobf("curse.maven:titanium-287342:3346366")
-    implementation fg.deobf("curse.maven:industrial-foregoing-266515:3386008")
-    implementation fg.deobf("curse.maven:cofh-core-69162:3249453")
-    implementation fg.deobf("curse.maven:ensorcellation-349447:3246996")
-    implementation fg.deobf("curse.maven:mantle-74924:3273201")
-    implementation fg.deobf("curse.maven:thermal-foundation-222880:3248150")
-  	implementation fg.deobf("curse.maven:mekanism-268560:3206392")
-    implementation fg.deobf("curse.maven:create-328085:328085")
-    implementation fg.deobf("curse.maven:ex-nihilo-sequentia-400012:3060647")
-    implementation fg.deobf("curse.maven:cyclic-239286:3398799")
-    implementation fg.deobf("curse.maven:cucumber-272335:3187116")
-    implementation fg.deobf("curse.maven:mystical-agriculture-246640:3152061")
-  //  implementation fg.deobf("curse.maven:simple-storage-network-268495:3163007")
+
+    implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-${mc_version}:${crafttweaker_version}")
+
+
+
+
+//    implementation fg.deobf("curse.maven:titanium-287342:3346366")
+//    implementation fg.deobf("curse.maven:industrial-foregoing-266515:3386008")
+//    implementation fg.deobf("curse.maven:cofh-core-69162:3249453")
+//    implementation fg.deobf("curse.maven:ensorcellation-349447:3246996")
+//    implementation fg.deobf("curse.maven:mantle-74924:3273201")
+//    implementation fg.deobf("curse.maven:thermal-foundation-222880:3248150")
+//    implementation fg.deobf("curse.maven:mekanism-268560:3206392")
+//    implementation fg.deobf("curse.maven:create-328085:328085")
+//    implementation fg.deobf("curse.maven:ex-nihilo-sequentia-400012:3060647")
+//    implementation fg.deobf("curse.maven:cyclic-239286:3398799")
+//    implementation fg.deobf("curse.maven:cucumber-272335:3187116")
+//    implementation fg.deobf("curse.maven:mystical-agriculture-246640:3152061")
+//    implementation fg.deobf("curse.maven:simple-storage-network-268495:3163007")
     
     
     
@@ -129,16 +127,14 @@ repositories {
     url = 'https://dogforce-games.com/maven'
   }
   maven {
-    // location of a maven mirror for JEI files, as a fallback
-    name = "ModMaven"
-    url = 'https://modmaven.k-4u.nl'
-  }
-  maven {
   	name = "curios"
     url = 'https://maven.theillusivec4.top/'
   }
   maven { url = 'https://maven.blamejared.com' }    
-  maven { url = 'https://www.cursemaven.com'  }
+  //maven { url = 'https://www.cursemaven.com'  }
+  
+  
+  maven { url = "https://maven.theillusivec4.top/"    } 
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
@@ -152,10 +148,6 @@ jar {
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"plaingrindersareus",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-            
-           // ,"TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
-           // "MixinConfigs": "mixins.myplugin.json",
-           // "FMLCorePluginContainsFMLMod": "true"
         ])
     }
 }
@@ -190,11 +182,6 @@ task signJar(type: SignJar, dependsOn: jar) {
     outputFile = jar.archivePath
 }
 
-task copyJar(type: Copy) {
-    from jar
-    into "${dist_folder}"
-}
-
-cleanJar {
+task cleanJar {
   delete 'build/libs'
 }
