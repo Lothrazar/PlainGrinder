@@ -87,7 +87,7 @@ public class TileGrinder extends TileEntity implements INamedContainerProvider, 
   }
 
   private GrindRecipe findMatchingRecipe() {
-    for (GrindRecipe rec : GrindRecipe.RECIPES) {
+    for (GrindRecipe rec : world.getRecipeManager().getRecipesForType(ModRecipeType.GRIND)) {
       if (rec.matches(this, world)) {
         return rec;
       }

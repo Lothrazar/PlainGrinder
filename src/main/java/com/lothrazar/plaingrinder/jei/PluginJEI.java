@@ -3,8 +3,11 @@ package com.lothrazar.plaingrinder.jei;
 import com.lothrazar.plaingrinder.ModMain;
 import com.lothrazar.plaingrinder.ModRegistry;
 import com.lothrazar.plaingrinder.grind.ContainerGrinder;
-import com.lothrazar.plaingrinder.grind.GrindRecipe;
+import com.lothrazar.plaingrinder.grind.ModRecipeType;
 import com.lothrazar.plaingrinder.grind.ScreenGrinder;
+import java.util.Objects;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import mezz.jei.api.IModPlugin;
@@ -40,7 +43,8 @@ public class PluginJEI implements IModPlugin {
 
   @Override
   public void registerRecipes(IRecipeRegistration registry) {
-    registry.addRecipes(GrindRecipe.RECIPES, RecipeCat.ID);
+    ClientWorld world = Objects.requireNonNull(Minecraft.getInstance().world);
+    registry.addRecipes(world.getRecipeManager().getRecipesForType(ModRecipeType.GRIND), RecipeCat.ID);
   }
 
   @Override

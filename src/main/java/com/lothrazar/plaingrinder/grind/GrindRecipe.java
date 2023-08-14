@@ -2,8 +2,6 @@ package com.lothrazar.plaingrinder.grind;
 
 import com.google.gson.JsonObject;
 import com.lothrazar.plaingrinder.ModMain;
-import java.util.HashSet;
-import java.util.Set;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -18,8 +16,6 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class GrindRecipe implements IRecipe<TileGrinder> {
 
-  private static final Set<String> HASHES = new HashSet<>();
-  public static final Set<GrindRecipe> RECIPES = new HashSet<>();
   private final ResourceLocation id;
   public Ingredient input = Ingredient.EMPTY;
   private ItemStack result = ItemStack.EMPTY;
@@ -29,6 +25,11 @@ public class GrindRecipe implements IRecipe<TileGrinder> {
     this.id = id;
     this.input = input;
     this.result = result;
+  }
+
+  @Override
+  public boolean isDynamic() { // isSpecial()
+    return true;
   }
 
   @Override
@@ -121,11 +122,6 @@ public class GrindRecipe implements IRecipe<TileGrinder> {
 
   public static boolean addRecipe(GrindRecipe r) {
     ResourceLocation id = r.getId();
-    if (HASHES.contains(id.toString())) {
-      return false;
-    }
-    RECIPES.add(r);
-    HASHES.add(id.toString());
     ModMain.LOGGER.info("Recipe loaded " + id.toString());
     return true;
   }
