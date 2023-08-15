@@ -87,7 +87,7 @@ public class TileGrinder extends BlockEntity implements MenuProvider, Container 
   }
 
   private GrindRecipe findMatchingRecipe() {
-    for (GrindRecipe rec : GrindRecipe.RECIPES) {
+    for (GrindRecipe rec : level.getRecipeManager().getAllRecipesFor(ModRecipeType.GRIND)) {
       if (rec.matches(this, level)) {
         return rec;
       }
@@ -204,11 +204,9 @@ public class TileGrinder extends BlockEntity implements MenuProvider, Container 
   }
 
   @Override
-  public void setItem(int arg0, ItemStack arg1) {
-  }
+  public void setItem(int arg0, ItemStack arg1) {}
 
-  public static void clientTick(Level level, BlockPos blockPos, BlockState blockState, TileGrinder tileGrinder) {
-  }
+  public static void clientTick(Level level, BlockPos blockPos, BlockState blockState, TileGrinder tileGrinder) {}
 
   public static <E extends BlockEntity> void serverTick(Level level, BlockPos blockPos, BlockState blockState, TileGrinder tile) {
     tile.tick();

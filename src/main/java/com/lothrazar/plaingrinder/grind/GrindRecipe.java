@@ -14,13 +14,8 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class GrindRecipe implements Recipe<TileGrinder> {
 
-  private static final Set<String> HASHES = new HashSet<>();
-  public static final Set<GrindRecipe> RECIPES = new HashSet<>();
   private final ResourceLocation id;
   public Ingredient input = Ingredient.EMPTY;
   private ItemStack result = ItemStack.EMPTY;
@@ -30,6 +25,11 @@ public class GrindRecipe implements Recipe<TileGrinder> {
     this.id = id;
     this.input = input;
     this.result = result;
+  }
+
+  @Override
+  public boolean isSpecial() {
+    return true;
   }
 
   @Override
@@ -120,11 +120,6 @@ public class GrindRecipe implements Recipe<TileGrinder> {
 
   public static boolean addRecipe(GrindRecipe r) {
     ResourceLocation id = r.getId();
-    if (HASHES.contains(id.toString())) {
-      return false;
-    }
-    RECIPES.add(r);
-    HASHES.add(id.toString());
     ModMain.LOGGER.info("Recipe loaded " + id.toString());
     return true;
   }
