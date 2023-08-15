@@ -1,7 +1,5 @@
 package com.lothrazar.plaingrinder.grind;
 
-import java.util.HashSet;
-import java.util.Set;
 import com.google.gson.JsonObject;
 import com.lothrazar.plaingrinder.ModPlainGrinder;
 import com.lothrazar.plaingrinder.RegistryGrinder;
@@ -19,8 +17,6 @@ import net.minecraft.world.level.Level;
 
 public class GrindRecipe implements Recipe<BlockEntityGrinder> {
 
-  private static final Set<String> HASHES = new HashSet<>();
-  public static final Set<GrindRecipe> RECIPES = new HashSet<>();
   private final ResourceLocation id;
   private Ingredient input = Ingredient.EMPTY;
   private ItemStack result = ItemStack.EMPTY;
@@ -34,6 +30,11 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
 
   public Ingredient getInput() {
     return input;
+  }
+
+  @Override
+  public boolean isSpecial() {
+    return true;
   }
 
   @Override
@@ -126,11 +127,6 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
 
   public static boolean addRecipe(GrindRecipe r) {
     ResourceLocation id = r.getId();
-    if (HASHES.contains(id.toString())) {
-      return false;
-    }
-    RECIPES.add(r);
-    HASHES.add(id.toString());
     ModPlainGrinder.LOGGER.info("Recipe loaded " + id.toString());
     return true;
   }

@@ -16,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 public class RecipeCat implements IRecipeCategory<GrindRecipe> {
 
   public static final ResourceLocation ID = new ResourceLocation(RegistryGrinder.GRINDER_RECIPE_TYPE.getId().toString());
+  static final RecipeType<GrindRecipe> TYPE = new RecipeType<>(ID, GrindRecipe.class);
   private IDrawable gui;
   private IDrawable icon;
 
@@ -47,6 +48,6 @@ public class RecipeCat implements IRecipeCategory<GrindRecipe> {
 
   @Override
   public RecipeType<GrindRecipe> getRecipeType() {
-    return PluginJEI.recipeTypeJei;
+    return TYPE;
   }
 }

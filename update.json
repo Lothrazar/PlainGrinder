@@ -1,14 +1,20 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/plain-grinder",
   "promos": {
-    "1.18.2-latest": "1.2.4",
-    "1.19.2-latest": "1.2.6",
-    "1.19.4-latest": "1.2.6",
-    "1.20.1-latest": "1.2.6"
+    "1.16.5-latest": "1.3.0",
+    "1.18.2-latest": "1.3.0",
+    "1.19.2-latest": "1.3.0",
+    "1.20.1-latest": "1.3.0"
   },
-  "1.19":{
-  	"1.2.4":"Ported",
-  	"1.2.5":"Fix JEI lookups for grinder recipes [MrBysco]"
+  "1.16.5": {
+  	"0.0.1":"First release",
+    "1.0.0": "Config file added for release",
+    "1.0.1":"Fix error in log file referencing item dust_quartz that does not exist (bad default recipe).  Added the standard 'Show Recipes' click area on the grinder screen that loads all recipes for the block (same as furnace).   Suggested minimum forge version 36.1.0"
+  	,"1.0.2":"Move JEI Show Recipe area tooltip.  Updated to forge 36.2.0"
+  	,"1.1.0":"Added missing dust item tags.  Grinder Base renamed to Plain Grinder.  Added optional/conditional recipes for some thermal and mekanism ores (osmium/copper/etc) "
+  	,"1.2.0":"New textures by Lylythii.  New items: Quartz Dust and Charcoal Dust.  Added several recipes such as blaze, bonemeal.  Coal and Charcoal dust can be used as furnace fuel directly. "
+  	,"1.2.1":"If your config was set to disable automation capability (allowAutomation = false), this version fixes a bug with items not droping when grinder block is broken."
+	,"1.3.0":""
   },
   "1.18.2": {
     "1.1.0": "Ported to 1.17.1.  Copper Dust added "
@@ -18,6 +24,11 @@
     ,"1.2.3": "Fix grinder deleting items on world reload"
     ,"1.2.4":" Fix usage of save() #5 and update JEI compat [MrBysco] ; forge-39.0.79 , jei-1.18.1:9.2.1.69 "
   },
+
+  "1.19":{
+  	"1.2.4":"Ported",
+  	"1.2.5":"Fix JEI lookups for grinder recipes [MrBysco]"
+  },
   "1.19.2":{
   	"1.2.6":"Ported to mc1.19.2"
   },
@@ -26,6 +37,6 @@
   },
   "1.20.1":{
   	"1.2.6":"Ported to mc1.20.1",
-  	"1.3.0":"Internals upgraded to neoforged (fully compatible)"
+  	"1.3.0":"Datapacks fixed and crafttweaker support added (upstream merge). Internals upgraded to neoforged (fully compatible)"
   }
 }
