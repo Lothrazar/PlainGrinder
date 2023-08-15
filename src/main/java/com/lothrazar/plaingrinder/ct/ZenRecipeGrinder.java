@@ -23,13 +23,14 @@ public class ZenRecipeGrinder implements IRecipeManager {
     return ModRecipeType.GRIND;
   }
 
+  @SuppressWarnings("unchecked")
   @ZenCodeType.Method
   public void addRecipe(String name, IIngredient input, IItemStack output) {
     name = fixRecipeName(name);
     GrindRecipe m = new GrindRecipe(new ResourceLocation("crafttweaker", name),
         input.asVanillaIngredient(),
         output.asImmutable().getInternal());
-    CraftTweakerAPI.apply(new ActionAddRecipe(this, m, ""));
+    CraftTweakerAPI.apply(new ActionAddRecipe<GrindRecipe>(this, m, ""));
     ModMain.LOGGER.info("crafttweaker: Recipe loaded " + m.getId().toString());
   }
 
