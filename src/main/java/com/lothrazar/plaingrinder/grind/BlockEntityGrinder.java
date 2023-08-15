@@ -86,7 +86,7 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
   }
 
   private GrindRecipe findMatchingRecipe() {
-    for (GrindRecipe rec : GrindRecipe.RECIPES) {
+    for (GrindRecipe rec : level.getRecipeManager().getAllRecipesFor(ModRegistry.GRINDER_RECIPE_TYPE.get())) {
       if (rec.matches(this, level)) {
         return rec;
       }
@@ -197,13 +197,9 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
   }
 
   @Override
-  public void setItem(int arg0, ItemStack arg1) {
-    inventory.insertItem(arg0, arg1, false);
-  }
+  public void setItem(int arg0, ItemStack arg1) {}
 
-  public static void clientTick(Level level, BlockPos blockPos, BlockState blockState, BlockEntityGrinder tileGrinder) {
-    //NOOP 
-  }
+  public static void clientTick(Level level, BlockPos blockPos, BlockState blockState, BlockEntityGrinder tileGrinder) {}
 
   public static <E extends BlockEntity> void serverTick(Level level, BlockPos blockPos, BlockState blockState, BlockEntityGrinder tile) {
     tile.tick();

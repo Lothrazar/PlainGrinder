@@ -51,7 +51,7 @@ plaingrinder by Lothrazar, Lylythii
 [[dependencies.plaingrinder]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19,)"
+    versionRange="[1.19.4,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.plaingrinder]]
