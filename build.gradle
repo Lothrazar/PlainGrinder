@@ -156,6 +156,7 @@ dependencies {
 
     implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crafttweaker_version}")
 
+  //  implementation fg.deobf("curse.maven:cyclic-239286:5620124")
 
 
 
@@ -168,7 +169,6 @@ dependencies {
 //    implementation fg.deobf("curse.maven:mekanism-268560:3206392")
 //    implementation fg.deobf("curse.maven:create-328085:328085")
 //    implementation fg.deobf("curse.maven:ex-nihilo-sequentia-400012:3060647")
-//    implementation fg.deobf("curse.maven:cyclic-239286:3398799")
 //    implementation fg.deobf("curse.maven:cucumber-272335:3187116")
 //    implementation fg.deobf("curse.maven:mystical-agriculture-246640:3152061")
 //    implementation fg.deobf("curse.maven:simple-storage-network-268495:3163007")

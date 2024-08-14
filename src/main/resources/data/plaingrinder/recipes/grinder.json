@@ -10,7 +10,7 @@
       "item": "minecraft:smooth_stone"
     },
     "i": {
-      "item": "minecraft:iron_nugget"
+      "tag": "forge:nuggets/iron"
     },
     "g": {
       "item": "minecraft:grindstone"

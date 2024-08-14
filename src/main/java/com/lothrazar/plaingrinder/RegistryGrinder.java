@@ -5,7 +5,9 @@ import com.lothrazar.plaingrinder.grind.BlockGrinder;
 import com.lothrazar.plaingrinder.grind.ContainerGrinder;
 import com.lothrazar.plaingrinder.grind.GrindRecipe;
 import com.lothrazar.plaingrinder.grind.GrindRecipe.SerializeGrinderRecipe;
+import com.lothrazar.plaingrinder.handle.BlockEntityHandleAuto;
 import com.lothrazar.plaingrinder.handle.BlockHandle;
+import com.lothrazar.plaingrinder.handle.BlockHandleAuto;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -55,6 +57,10 @@ public class RegistryGrinder {
   public static final RegistryObject<Block> handle = BLOCKS.register("handle", () -> new BlockHandle(Block.Properties.of().strength(0.4F)));
   public static final RegistryObject<Item> igrinder = ITEMS.register("grinder", () -> new BlockItem(GRINDER.get(), new Item.Properties()));
   public static final RegistryObject<Item> ihandle = ITEMS.register("handle", () -> new BlockItem(handle.get(), new Item.Properties()));
+  //auto handle
+  public static final RegistryObject<Block> HANDLE_AUTO = BLOCKS.register("handle_auto", () -> new BlockHandleAuto(Block.Properties.of().strength(0.4F)));
+  public static final RegistryObject<BlockEntityType<BlockEntityHandleAuto>> TE_HANDLE = TILES.register("handle_auto", () -> BlockEntityType.Builder.of(BlockEntityHandleAuto::new, HANDLE_AUTO.get()).build(null));
+  public static final RegistryObject<Item> iauto_handle = ITEMS.register("handle_auto", () -> new BlockItem(HANDLE_AUTO.get(), new Item.Properties()));
   //block entity and container
   public static final RegistryObject<BlockEntityType<BlockEntityGrinder>> TE_GRINDER = TILES.register("grinder", () -> BlockEntityType.Builder.of(BlockEntityGrinder::new, GRINDER.get()).build(null));
   public static final RegistryObject<MenuType<ContainerGrinder>> MENU = MENUS.register("grinder", () -> IForgeMenuType.create(ContainerGrinder::new));

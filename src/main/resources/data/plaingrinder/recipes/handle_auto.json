@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ti ",
+    " t ",
+    " t "
+  ],
+  "key": {
+    "t": {
+      "item": "minecraft:deepslate"
+    },
+    "i": {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "result": {
+    "item": "plaingrinder:handle_auto",
+    "count": 1
+  }
+}

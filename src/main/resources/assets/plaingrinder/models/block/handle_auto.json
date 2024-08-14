@@ -1,0 +1,7 @@
+{
+  "parent": "plaingrinder:block/handle",
+  "textures": {
+    "particle": "plaingrinder:block/handle_auto",
+    "texture": "plaingrinder:block/handle_auto"
+  }
+}

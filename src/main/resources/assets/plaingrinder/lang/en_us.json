@@ -11,6 +11,7 @@
   "block.plaingrinder.grinder": "Plain Grinder",
   "block.plaingrinder.grinder.tooltip": "Place below a Handle and fill with ore",
   "block.plaingrinder.handle": "Grinder Handle",
+  "block.plaingrinder.handle_auto": "Automatic Grinder Handle",
   "block.plaingrinder.handle.tooltip": "Turn this while on top of a Grinder",
   "itemGroup.plaingrinder": "Plain Grinder"
 }

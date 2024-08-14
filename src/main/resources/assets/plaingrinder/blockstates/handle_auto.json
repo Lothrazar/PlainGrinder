@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "plaingrinder:block/handle_auto"
+    },
+    "facing=east": {
+      "model": "plaingrinder:block/handle_auto",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "plaingrinder:block/handle_auto",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "plaingrinder:block/handle_auto",
+      "y": 270
+    }
+  }
+}
