@@ -156,8 +156,10 @@ dependencies {
 
     implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crafttweaker_version}")
 
-  //  implementation fg.deobf("curse.maven:cyclic-239286:5620124")
+    implementation fg.deobf("curse.maven:cyclic-239286:5620124")
 
+    implementation fg.deobf("curse.maven:flower-seeds-445955:4800977")
+    implementation fg.deobf("curse.maven:flower-seeds-2-cyclic-908151:4800978")
 
 
 //    implementation fg.deobf("curse.maven:titanium-287342:3346366")

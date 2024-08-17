@@ -1,0 +1,10 @@
+{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:brewing_stand"
+  },
+  "result": {
+    "item": "minecraft:blaze_rod",
+    "count": 1
+  }
+}

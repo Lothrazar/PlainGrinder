@@ -1,0 +1,16 @@
+{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:blue_orchid"
+  },
+  "result": {
+    "item": "flowerseeds:blue_orchid_seed",
+    "count": 2
+  },
+  "conditions": [
+    {
+      "modid": "flowerseeds",
+      "type": "forge:mod_loaded"
+    }
+  ]
+}

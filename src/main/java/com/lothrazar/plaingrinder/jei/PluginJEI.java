@@ -29,25 +29,25 @@ public class PluginJEI implements IModPlugin {
 
   @Override
   public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-    registration.addRecipeCatalyst(new ItemStack(RegistryGrinder.igrinder.get()), RecipeCat.TYPE);
+    registration.addRecipeCatalyst(new ItemStack(RegistryGrinder.igrinder.get()), GrinderRecipeCategory.TYPE);
   }
 
   @Override
   public void registerCategories(IRecipeCategoryRegistration registry) {
     IGuiHelper guiHelper = registry.getJeiHelpers().getGuiHelper();
-    registry.addRecipeCategories(new RecipeCat(guiHelper));
+    registry.addRecipeCategories(new GrinderRecipeCategory(guiHelper));
   }
 
   @Override
   public void registerRecipes(IRecipeRegistration registry) {
     ClientLevel world = Objects.requireNonNull(Minecraft.getInstance().level);
-    registry.addRecipes(RecipeCat.TYPE, List.copyOf(world.getRecipeManager().getAllRecipesFor(RegistryGrinder.GRINDER_RECIPE_TYPE.get())));
+    registry.addRecipes(GrinderRecipeCategory.TYPE, List.copyOf(world.getRecipeManager().getAllRecipesFor(RegistryGrinder.GRINDER_RECIPE_TYPE.get())));
   }
 
   @Override
   public void registerGuiHandlers(IGuiHandlerRegistration registry) {
     registry.addRecipeClickArea(ScreenGrinder.class,
         72, 10,
-        34, 36, RecipeCat.TYPE);
+        34, 36, GrinderRecipeCategory.TYPE);
   }
 }

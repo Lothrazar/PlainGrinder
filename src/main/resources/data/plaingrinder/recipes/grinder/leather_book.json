@@ -1,0 +1,10 @@
+{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:book"
+  },
+  "result": {
+    "item": "minecraft:leather",
+    "count": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:red_nether_bricks"
+  },
+  "result": {
+    "item": "minecraft:nether_brick",
+    "count": 2
+  }
+}

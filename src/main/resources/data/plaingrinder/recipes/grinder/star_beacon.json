@@ -1,0 +1,10 @@
+{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:beacon"
+  },
+  "result": {
+    "item": "minecraft:nether_star",
+    "count": 1
+  }
+}

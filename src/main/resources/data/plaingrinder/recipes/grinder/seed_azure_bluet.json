@@ -1,0 +1,16 @@
+{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:azure_bluet"
+  },
+  "result": {
+    "item": "flowerseeds:azure_bluet_seed",
+    "count": 2
+  },
+  "conditions": [
+    {
+      "modid": "flowerseeds",
+      "type": "forge:mod_loaded"
+    }
+  ]
+}

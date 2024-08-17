@@ -1,0 +1,10 @@
+{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:note_block"
+  },
+  "result": {
+    "item": "minecraft:redstone",
+    "count": 1
+  }
+}

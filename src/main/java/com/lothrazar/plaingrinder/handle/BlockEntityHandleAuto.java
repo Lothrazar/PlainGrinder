@@ -39,7 +39,6 @@ public class BlockEntityHandleAuto extends BlockEntity {
   //the main gametick method for this block
   private void tick() {
     tickDownTimer();
-    System.out.println("aut handle " + timer);
     if (canProcessOre()) {
       processRotation();
       resetTimer();

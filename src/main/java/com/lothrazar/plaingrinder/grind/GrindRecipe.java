@@ -105,7 +105,7 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
         return r;
       }
       catch (Exception e) {
-        ModPlainGrinder.LOGGER.error("Error loading recipe" + recipeId, e);
+        ModPlainGrinder.LOGGER.error("Error loading recipe: " + recipeId, e);
         return null;
       }
     }
