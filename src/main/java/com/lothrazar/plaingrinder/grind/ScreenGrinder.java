@@ -1,5 +1,6 @@
 package com.lothrazar.plaingrinder.grind;
 
+import com.lothrazar.library.gui.TexturedProgress;
 import com.lothrazar.plaingrinder.ModPlainGrinder;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -11,6 +12,8 @@ public class ScreenGrinder extends AbstractContainerScreen<ContainerGrinder> {
 
   public static final ResourceLocation INVENTORY = new ResourceLocation(ModPlainGrinder.MODID, "textures/gui/inventory.png");
   public static final ResourceLocation SLOT = new ResourceLocation(ModPlainGrinder.MODID, "textures/gui/slot.png");
+  public static final ResourceLocation SAW = new ResourceLocation(ModPlainGrinder.MODID, "textures/gui/saw.png");
+  private TexturedProgress progress;
   final int size = 18;
 
   public ScreenGrinder(ContainerGrinder screenContainer, Inventory inv, Component titleIn) {
@@ -20,6 +23,9 @@ public class ScreenGrinder extends AbstractContainerScreen<ContainerGrinder> {
   @Override
   public void init() {
     super.init();
+    this.progress = new TexturedProgress(this.font, 83, 36, SAW);
+    progress.guiLeft = leftPos;
+    progress.guiTop = topPos;
   }
 
   @Override
@@ -36,9 +42,6 @@ public class ScreenGrinder extends AbstractContainerScreen<ContainerGrinder> {
   }
 
   protected void drawBackground(GuiGraphics ms, ResourceLocation gui) {
-    //    RenderSystem.setShader(GameRenderer::getPositionTexShader);
-    //    RenderSystem.setShaderTexture(0, gui);
-    //    this.minecraft.getTextureManager().bindForSetup(gui);
     int relX = (this.width - this.imageWidth) / 2;
     int relY = (this.height - this.imageHeight) / 2;
     ms.blit(gui, relX, relY, 0, 0, this.imageWidth, this.imageHeight);
@@ -47,9 +50,10 @@ public class ScreenGrinder extends AbstractContainerScreen<ContainerGrinder> {
   }
 
   protected void drawSlot(GuiGraphics ms, int x, int y) {
-    //    this.minecraft.getTextureManager().bindForSetup(SLOT);
-    //    RenderSystem.setShader(GameRenderer::getPositionTexShader);
-    //    RenderSystem.setShaderTexture(0, SLOT);
     ms.blit(SLOT, leftPos + x, topPos + y, 0, 0, size, size, size, size);
+    //
+    final int max = menu.tile.getMaxStage();
+    progress.max = max;
+    progress.draw(ms, max - menu.tile.getStage());
   }
 }

@@ -1,20 +1,22 @@
 package com.lothrazar.plaingrinder.grind;
 
+import com.lothrazar.library.gui.ContainerFlib;
 import com.lothrazar.plaingrinder.RegistryGrinder;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerGrinder extends AbstractContainerMenu {
+public class ContainerGrinder extends ContainerFlib {
 
   public static final int PLAYERSIZE = 4 * 9;
   protected int startInv = 0;
   protected int endInv = 2;
   protected Inventory playerInventory;
+  protected BlockEntityGrinder tile;
 
   public ContainerGrinder(int id, Inventory inv, FriendlyByteBuf extraData) {
     this(id, inv, (BlockEntityGrinder) inv.player.level().getBlockEntity(extraData.readBlockPos()));
@@ -24,9 +26,22 @@ public class ContainerGrinder extends AbstractContainerMenu {
   public ContainerGrinder(int windowId, Inventory inv, BlockEntityGrinder tile) {
     super(RegistryGrinder.MENU.get(), windowId);
     this.playerInventory = inv;
+    this.tile = tile;
     addSlot(new SlotItemHandler(tile.inputSlots, 0, 55, 35));
     addSlot(new SlotItemHandler(tile.outputSlots, 0, 109, 35));
     layoutPlayerInventorySlots(8, 84);
+    addDataSlot(new DataSlot() {
+
+      @Override
+      public int get() {
+        return tile.getStage();
+      }
+
+      @Override
+      public void set(int value) {
+        tile.setStage(value);
+      }
+    });
   }
 
   @Override
@@ -89,6 +104,7 @@ public class ContainerGrinder extends AbstractContainerMenu {
     return index;
   }
 
+  @Override
   protected void layoutPlayerInventorySlots(int leftCol, int topRow) {
     // Player inventory
     addSlotBox(playerInventory, 9, leftCol, topRow, 9, 18, 3, 18);

@@ -50,7 +50,15 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
   }
 
   public boolean canProcessOre() {
-    return stage == ConfigPlainGrinder.MAX_STAGE.get();
+    return stage == getMaxStage();
+  }
+
+  public Integer getMaxStage() {
+    return ConfigPlainGrinder.MAX_STAGE.get();
+  }
+
+  public int getStage() {
+    return stage;
   }
 
   private void doProcess() {
@@ -134,14 +142,14 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
   public void incrementGrind() {
     timer = ConfigPlainGrinder.TIMER_COOLDOWN.get(); //restart to allow another rotation
     stage++;
-    if (stage > ConfigPlainGrinder.MAX_STAGE.get()) {
-      stage = ConfigPlainGrinder.MAX_STAGE.get();
+    if (stage > getMaxStage()) {
+      stage = getMaxStage();
     }
     if (this.inputIsEmpty()) {
       //only track empty if its breakable
       this.emptyHits++;
       if (ConfigPlainGrinder.BREAKABLE_HANDLE.get() &&
-          this.emptyHits > ConfigPlainGrinder.MAX_STAGE.get() * MULT_OF_MAX_STAGE_BREAKSTUFF) {
+          this.emptyHits > getMaxStage() * MULT_OF_MAX_STAGE_BREAKSTUFF) {
         this.breakHandleAboveMe();
       }
     }
@@ -208,5 +216,10 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
   @Override
   public void clearContent() {
     // TODO Auto-generated method stub
+  }
+
+  // used on clientside to set value when server syncs in
+  public void setStage(int value) {
+    this.stage = value;
   }
 }
