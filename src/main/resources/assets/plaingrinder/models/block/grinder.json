@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "plaingrinder:block/block_indent",
   "textures": {
     "particle": "plaingrinder:block/grinder_top",
     "down": "plaingrinder:block/grinder_bottom",
@@ -7,6 +7,7 @@
     "north": "plaingrinder:block/grinder_side",
     "south": "plaingrinder:block/grinder_side",
     "west": "plaingrinder:block/grinder_side",
-    "east": "plaingrinder:block/grinder_side"
+    "east": "plaingrinder:block/grinder_side",
+    "block": "plaingrinder:block/grinder_side"
   }
 }
