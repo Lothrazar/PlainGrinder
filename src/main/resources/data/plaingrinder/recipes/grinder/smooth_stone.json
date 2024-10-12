@@ -1,0 +1,10 @@
+{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:smooth_stone"
+  },
+  "result": {
+    "item": "minecraft:stone",
+    "count": 1
+  }
+}

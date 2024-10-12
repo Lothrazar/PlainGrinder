@@ -4,7 +4,7 @@
     "1.16.5-latest": "1.3.0",
     "1.18.2-latest": "1.3.0",
     "1.19.2-latest": "1.3.0",
-    "1.20.1-latest": "1.4.0"
+    "1.20.1-latest": "1.4.2"
   },
   "1.16.5": {
   	"0.0.1":"First release",
@@ -40,6 +40,6 @@
   	"1.3.0":"Datapacks fixed and crafttweaker support added (upstream merge). Internals upgraded to neoforged (fully compatible)"
   	,"1.4.0":"Add new Automatic Grinder Handle"
   	,"1.4.1":"Fixed some issues with new Automatic handle.  Add progress indicator in the screen. Reduced vertical size of JEI category window. Added compatible recipes for the 'Flower Seeds 2' mod.  Added more grinding recipes such as wool to string, and books to leather"
-  	,"1.4.2":"The grinder now has minecraft:comparator redstone output levels based on its inventory.  Updated block model visuals.  "
+  	,"1.4.2":"The grinder now has minecraft:comparator redstone output levels based on its inventory.  Updated block model visuals.  New recipes: basalt to sand, tuff to cobbled deepslate, sandstone to sand, blackstone to black_dye, calcite to white_dye, cocoa_beans to brown_dye, mossy_cobblestone to cobble, mossy_stone_bricks to stone_bricks, soul_sand to sand, soul_soil to coarse_dirt, and a few others"
   }
 }

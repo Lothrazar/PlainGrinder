@@ -1,0 +1,10 @@
+{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:red_sandstone"
+  },
+  "result": {
+    "item": "minecraft:red_sand",
+    "count": 4
+  }
+}

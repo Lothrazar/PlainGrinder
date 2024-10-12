@@ -1,0 +1,10 @@
+{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:polished_diorite"
+  },
+  "result": {
+    "item": "minecraft:diorite",
+    "count": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:polished_blackstone"
+  },
+  "result": {
+    "item": "minecraft:blackstone",
+    "count": 1
+  }
+}
