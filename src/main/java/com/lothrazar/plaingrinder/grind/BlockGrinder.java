@@ -11,6 +11,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -35,6 +36,22 @@ public class BlockGrinder extends BaseEntityBlock {
   @Override
   public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
     return new BlockEntityGrinder(pos, state);
+  }
+
+  /**
+   * used by comparator
+   */
+  @Override
+  public boolean hasAnalogOutputSignal(BlockState bs) {
+    return true;
+  }
+
+  /**
+   * used by comparator
+   */
+  @Override
+  public int getAnalogOutputSignal(BlockState bs, Level level, BlockPos pos) {
+    return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
   }
 
   @Override

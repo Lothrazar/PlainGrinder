@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -78,8 +79,14 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
         this.outputSlots.insertItem(0, currentRecipe.assemble(this, level.registryAccess()), false);
         //and sound on the trigger
         level.levelEvent((Player) null, 1042, worldPosition, 0);
+        // update comparator outputs
+        level.updateNeighbourForOutputSignal(worldPosition, getBlock());
       }
     }
+  }
+
+  Block getBlock() {
+    return RegistryGrinder.GRINDER.get();
   }
 
   private boolean tryProcessRecipe(GrindRecipe currentRecipe) {
@@ -166,8 +173,12 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
     }
   }
 
-  private boolean inputIsEmpty() {
+  public boolean inputIsEmpty() {
     return this.inputSlots.getStackInSlot(0).isEmpty();
+  }
+
+  public boolean outputIsEmpty() {
+    return this.outputSlots.getStackInSlot(0).isEmpty();
   }
 
   public boolean canGrind() {
