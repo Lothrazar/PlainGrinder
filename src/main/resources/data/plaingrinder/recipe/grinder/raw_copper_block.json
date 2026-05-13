@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:raw_copper_block"
+  },
+  "result": {
+    "id": "plaingrinder:dust_copper",
+    "count": 18
+  }
+}

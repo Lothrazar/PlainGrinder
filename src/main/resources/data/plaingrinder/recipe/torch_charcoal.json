@@ -1,0 +1,19 @@
+﻿{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "c ",
+    "s "
+  ],
+  "key": {
+    "c": {
+      "tag": "c:dusts/charcoal"
+    },
+    "s": {
+    	"item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "minecraft:torch",
+    "count": 2
+  }
+}

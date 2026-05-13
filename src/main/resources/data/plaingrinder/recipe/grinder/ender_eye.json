@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:ender_eye"
+  },
+  "result": {
+    "id": "minecraft:ender_pearl",
+    "count": 1
+  }
+}

@@ -1,0 +1,16 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "cyclic:flower_cyan"
+  },
+  "result": {
+    "id": "flowerseedscyclic:cyan_rose_seed",
+    "count": 2
+  },
+  "conditions": [
+    {
+      "modid": "flowerseedscyclic",
+      "type": "forge:mod_loaded"
+    }
+  ]
+}

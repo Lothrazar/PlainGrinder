@@ -20,15 +20,15 @@ import net.minecraft.resources.ResourceLocation;
 
 public class GrinderRecipeCategory implements IRecipeCategory<GrindRecipe> {
 
-  public static final ResourceLocation ID = new ResourceLocation(RegistryGrinder.GRINDER_RECIPE_TYPE.getId().toString());
+  public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "grinder");
   static final RecipeType<GrindRecipe> TYPE = new RecipeType<>(ID, GrindRecipe.class);
   private IDrawable gui;
   private IDrawable icon;
   private TexturedProgress progress;
 
   public GrinderRecipeCategory(IGuiHelper helper) {
-    gui = helper.drawableBuilder(new ResourceLocation(ModPlainGrinder.MODID, "textures/gui/jei.png"), 0, 0, 130, 20).setTextureSize(130, 20).build();
-    icon = helper.drawableBuilder(new ResourceLocation(ModPlainGrinder.MODID, "textures/block/grinder_top.png"), 0, 0, 16, 16).setTextureSize(16, 16).build();
+    gui = helper.drawableBuilder(ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/gui/jei.png"), 0, 0, 130, 20).setTextureSize(130, 20).build();
+    icon = helper.drawableBuilder(ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/block/grinder_top.png"), 0, 0, 16, 16).setTextureSize(16, 16).build();
     this.progress = new TexturedProgress(Minecraft.getInstance().font, 58, 2, ScreenGrinder.SAW);
   }
 
@@ -38,8 +38,13 @@ public class GrinderRecipeCategory implements IRecipeCategory<GrindRecipe> {
   }
 
   @Override
-  public IDrawable getBackground() {
-    return gui;
+  public int getWidth() {
+    return 130;
+  }
+
+  @Override
+  public int getHeight() {
+    return 20;
   }
 
   @Override
@@ -55,6 +60,7 @@ public class GrinderRecipeCategory implements IRecipeCategory<GrindRecipe> {
 
   @Override
   public void draw(GrindRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics ms, double mouseX, double mouseY) {
+    gui.draw(ms, 0, 0);
     progress.draw(ms, 1);
   }
 

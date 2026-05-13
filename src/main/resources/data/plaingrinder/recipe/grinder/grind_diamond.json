@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "tag": "c:ores/diamond"
+  },
+  "result": {
+    "id": "plaingrinder:dust_diamond",
+    "count": 2
+  }
+}

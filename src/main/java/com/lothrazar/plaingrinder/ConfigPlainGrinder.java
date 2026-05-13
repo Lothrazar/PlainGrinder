@@ -1,14 +1,12 @@
 package com.lothrazar.plaingrinder;
 
-import com.lothrazar.library.config.ConfigTemplate;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.*;
 
-public class ConfigPlainGrinder extends ConfigTemplate {
+public class ConfigPlainGrinder {
 
-  private static final ForgeConfigSpec.Builder CFG = new ForgeConfigSpec.Builder();
-  private static ForgeConfigSpec COMMON_CONFIG;
+  private static final ModConfigSpec.Builder CFG = new ModConfigSpec.Builder();
+  public static ModConfigSpec COMMON_CONFIG;
   public static IntValue TIMER_COOLDOWN;
   public static IntValue MAX_STAGE;
   public static BooleanValue BREAKABLE_HANDLE;
@@ -25,9 +23,5 @@ public class ConfigPlainGrinder extends ConfigTemplate {
         .defineInRange("stagesPerRecipe", 4, 1, 444);
     CFG.pop(); // one pop for every push
     COMMON_CONFIG = CFG.build();
-  }
-
-  public ConfigPlainGrinder() {
-    COMMON_CONFIG.setConfig(setup(ModPlainGrinder.MODID));
   }
 }

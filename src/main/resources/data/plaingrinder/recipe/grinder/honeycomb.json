@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:honeycomb_block"
+  },
+  "result": {
+    "id": "minecraft:honeycomb",
+    "count": 4
+  }
+}

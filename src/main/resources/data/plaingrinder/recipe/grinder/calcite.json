@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:calcite"
+  },
+  "result": {
+    "id": "minecraft:white_dye",
+    "count": 2
+  }
+}

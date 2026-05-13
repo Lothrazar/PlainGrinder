@@ -1,0 +1,16 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:dandelion"
+  },
+  "result": {
+    "id": "flowerseeds:dandelion_seed",
+    "count": 2
+  },
+  "conditions": [
+    {
+      "modid": "flowerseeds",
+      "type": "forge:mod_loaded"
+    }
+  ]
+}

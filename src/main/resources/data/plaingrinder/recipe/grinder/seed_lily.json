@@ -1,0 +1,16 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:lily_of_the_valley"
+  },
+  "result": {
+    "id": "flowerseeds:lily_of_the_valley_seed",
+    "count": 2
+  },
+  "conditions": [
+    {
+      "modid": "flowerseeds",
+      "type": "forge:mod_loaded"
+    }
+  ]
+}

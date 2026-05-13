@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:soul_sand"
+  },
+  "result": {
+    "id": "minecraft:sand",
+    "count": 1
+  }
+}

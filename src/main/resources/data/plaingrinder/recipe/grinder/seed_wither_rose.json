@@ -1,0 +1,16 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:wither_rose"
+  },
+  "result": {
+    "id": "flowerseeds:wither_rose_seed",
+    "count": 2
+  },
+  "conditions": [
+    {
+      "modid": "flowerseeds",
+      "type": "forge:mod_loaded"
+    }
+  ]
+}

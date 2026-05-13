@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:redstone_torch"
+  },
+  "result": {
+    "id": "minecraft:redstone",
+    "count": 1
+  }
+}

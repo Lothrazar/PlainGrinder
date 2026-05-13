@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:jack_o_lantern"
+  },
+  "result": {
+    "id": "minecraft:torch",
+    "count": 1
+  }
+}
