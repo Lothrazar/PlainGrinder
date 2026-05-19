@@ -1,0 +1,16 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:cornflower"
+  },
+  "result": {
+    "id": "flowerseeds:cornflower_seed",
+    "count": 2
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "flowerseeds",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

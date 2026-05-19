@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:mossy_stone_bricks"
+  },
+  "result": {
+    "id": "minecraft:stone_bricks",
+    "count": 1
+  }
+}

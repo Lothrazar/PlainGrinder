@@ -10,9 +10,9 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class ScreenGrinder extends AbstractContainerScreen<ContainerGrinder> {
 
-  public static final ResourceLocation INVENTORY = new ResourceLocation(ModPlainGrinder.MODID, "textures/gui/inventory.png");
-  public static final ResourceLocation SLOT = new ResourceLocation(ModPlainGrinder.MODID, "textures/gui/slot.png");
-  public static final ResourceLocation SAW = new ResourceLocation(ModPlainGrinder.MODID, "textures/gui/saw.png");
+  public static final ResourceLocation INVENTORY = ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/gui/inventory.png");
+  public static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/gui/slot.png");
+  public static final ResourceLocation SAW = ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/gui/saw.png");
   private TexturedProgress progress;
   final int size = 18;
 
@@ -36,7 +36,7 @@ public class ScreenGrinder extends AbstractContainerScreen<ContainerGrinder> {
 
   @Override
   public void render(GuiGraphics ms, int mouseX, int mouseY, float partialTicks) {
-    this.renderBackground(ms);
+    this.renderBackground(ms, mouseX, mouseY, partialTicks);
     super.render(ms, mouseX, mouseY, partialTicks);
     this.renderTooltip(ms, mouseX, mouseY);
   }

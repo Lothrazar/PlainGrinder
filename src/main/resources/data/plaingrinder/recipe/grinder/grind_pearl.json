@@ -1,0 +1,21 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "tag": "c:ender_pearls"
+  },
+  "result": {
+    "id": "thermal:ender_pearl_dust",
+    "count": 1
+  },
+  "neoforge:conditions": [
+    {
+      "values": [
+        {
+          "item": "thermal:ender_pearl_dust",
+          "type": "neoforge:item_exists"
+        }
+      ],
+      "type": "neoforge:and"
+    }
+  ]
+}

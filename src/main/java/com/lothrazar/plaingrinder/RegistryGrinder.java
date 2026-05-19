@@ -21,24 +21,25 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.RegisterEvent;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ModPlainGrinder.MODID)
 public class RegistryGrinder {
 
-  static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ModPlainGrinder.MODID);
-  static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ModPlainGrinder.MODID);
-  static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, ModPlainGrinder.MODID);
-  static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, ModPlainGrinder.MODID);
-  static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, ModPlainGrinder.MODID);
+  static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ModPlainGrinder.MODID);
+  static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ModPlainGrinder.MODID);
+  static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ModPlainGrinder.MODID);
+  static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, ModPlainGrinder.MODID);
+  static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, ModPlainGrinder.MODID);
   static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, ModPlainGrinder.MODID);
-  private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation(ModPlainGrinder.MODID, "tab"));
+  private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "tab"));
 
   @SubscribeEvent
   public static void onCreativeModeTabRegister(RegisterEvent event) {
@@ -46,37 +47,38 @@ public class RegistryGrinder {
       helper.register(TAB, CreativeModeTab.builder().icon(() -> new ItemStack(ihandle.get()))
           .title(Component.translatable("itemGroup." + ModPlainGrinder.MODID))
           .displayItems((enabledFlags, populator) -> {
-            for (RegistryObject<Item> entry : ITEMS.getEntries()) {
-              populator.accept(entry.get());
-            }
+            ITEMS.getEntries().forEach(entry -> populator.accept(entry.get()));
           }).build());
     });
   }
 
-  public static final RegistryObject<Block> GRINDER = BLOCKS.register("grinder", () -> new BlockGrinder(Block.Properties.of().strength(0.9F)));
-  public static final RegistryObject<Block> handle = BLOCKS.register("handle", () -> new BlockHandle(Block.Properties.of().strength(0.4F)));
-  public static final RegistryObject<Item> igrinder = ITEMS.register("grinder", () -> new BlockItem(GRINDER.get(), new Item.Properties()));
-  public static final RegistryObject<Item> ihandle = ITEMS.register("handle", () -> new BlockItem(handle.get(), new Item.Properties()));
+  public static final DeferredBlock<BlockGrinder> GRINDER = BLOCKS.register("grinder", () -> new BlockGrinder(Block.Properties.of().strength(0.9F)));
+  public static final DeferredBlock<BlockHandle> handle = BLOCKS.register("handle", () -> new BlockHandle(Block.Properties.of().strength(0.4F)));
+  public static final DeferredItem<BlockItem> igrinder = ITEMS.register("grinder", () -> new BlockItem(GRINDER.get(), new Item.Properties()));
+  public static final DeferredItem<BlockItem> ihandle = ITEMS.register("handle", () -> new BlockItem(handle.get(), new Item.Properties()));
   //auto handle
-  public static final RegistryObject<Block> HANDLE_AUTO = BLOCKS.register("handle_auto", () -> new BlockHandleAuto(Block.Properties.of().strength(0.4F)));
-  public static final RegistryObject<BlockEntityType<BlockEntityHandleAuto>> TE_HANDLE = TILES.register("handle_auto", () -> BlockEntityType.Builder.of(BlockEntityHandleAuto::new, HANDLE_AUTO.get()).build(null));
-  public static final RegistryObject<Item> iauto_handle = ITEMS.register("handle_auto", () -> new BlockItem(HANDLE_AUTO.get(), new Item.Properties()));
+  public static final DeferredBlock<BlockHandleAuto> HANDLE_AUTO = BLOCKS.register("handle_auto", () -> new BlockHandleAuto(Block.Properties.of().strength(0.4F)));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BlockEntityHandleAuto>> TE_HANDLE = TILES.register("handle_auto", () -> BlockEntityType.Builder.of(BlockEntityHandleAuto::new, HANDLE_AUTO.get()).build(null));
+  public static final DeferredItem<BlockItem> iauto_handle = ITEMS.register("handle_auto", () -> new BlockItem(HANDLE_AUTO.get(), new Item.Properties()));
   //block entity and container
-  public static final RegistryObject<BlockEntityType<BlockEntityGrinder>> TE_GRINDER = TILES.register("grinder", () -> BlockEntityType.Builder.of(BlockEntityGrinder::new, GRINDER.get()).build(null));
-  public static final RegistryObject<MenuType<ContainerGrinder>> MENU = MENUS.register("grinder", () -> IForgeMenuType.create(ContainerGrinder::new));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BlockEntityGrinder>> TE_GRINDER = TILES.register("grinder", () -> BlockEntityType.Builder.of(BlockEntityGrinder::new, GRINDER.get()).build(null));
+  public static final DeferredHolder<MenuType<?>, MenuType<ContainerGrinder>> MENU = MENUS.register("grinder", () -> IMenuTypeExtension.create(ContainerGrinder::new));
   //two for the recipe
-  public static final RegistryObject<RecipeType<GrindRecipe>> GRINDER_RECIPE_TYPE = RECIPE_TYPES.register("grinder", () -> new RecipeType<GrindRecipe>() {
-    //yep leave it empty its fine
+  public static final DeferredHolder<RecipeType<?>, RecipeType<GrindRecipe>> GRINDER_RECIPE_TYPE = RECIPE_TYPES.register("grinder", () -> new RecipeType<GrindRecipe>() {
+    @Override
+    public String toString() {
+      return ModPlainGrinder.MODID + ":grinder";
+    }
   });
-  public static final RegistryObject<SerializeGrinderRecipe> GRINDER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("grinder", SerializeGrinderRecipe::new);
+  public static final DeferredHolder<RecipeSerializer<?>, SerializeGrinderRecipe> GRINDER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("grinder", SerializeGrinderRecipe::new);
   //items
-  public static final RegistryObject<Item> dust_coal = ITEMS.register("dust_coal", () -> new ItemDustBurnable(new Item.Properties()));
-  public static final RegistryObject<Item> dust_charcoal = ITEMS.register("dust_charcoal", () -> new ItemDustBurnable(new Item.Properties()));
-  public static final RegistryObject<Item> dust_diamond = ITEMS.register("dust_diamond", () -> new Item(new Item.Properties()));
-  public static final RegistryObject<Item> dust_gold = ITEMS.register("dust_gold", () -> new Item(new Item.Properties()));
-  public static final RegistryObject<Item> dust_iron = ITEMS.register("dust_iron", () -> new Item(new Item.Properties()));
-  public static final RegistryObject<Item> dust_emerald = ITEMS.register("dust_emerald", () -> new Item(new Item.Properties()));
-  public static final RegistryObject<Item> dust_lapis = ITEMS.register("dust_lapis", () -> new Item(new Item.Properties()));
-  public static final RegistryObject<Item> dust_copper = ITEMS.register("dust_copper", () -> new Item(new Item.Properties()));
-  public static final RegistryObject<Item> dust_quartz = ITEMS.register("dust_quartz", () -> new Item(new Item.Properties()));
+  public static final DeferredItem<ItemDustBurnable> dust_coal = ITEMS.register("dust_coal", () -> new ItemDustBurnable(new Item.Properties()));
+  public static final DeferredItem<ItemDustBurnable> dust_charcoal = ITEMS.register("dust_charcoal", () -> new ItemDustBurnable(new Item.Properties()));
+  public static final DeferredItem<Item> dust_diamond = ITEMS.register("dust_diamond", () -> new Item(new Item.Properties()));
+  public static final DeferredItem<Item> dust_gold = ITEMS.register("dust_gold", () -> new Item(new Item.Properties()));
+  public static final DeferredItem<Item> dust_iron = ITEMS.register("dust_iron", () -> new Item(new Item.Properties()));
+  public static final DeferredItem<Item> dust_emerald = ITEMS.register("dust_emerald", () -> new Item(new Item.Properties()));
+  public static final DeferredItem<Item> dust_lapis = ITEMS.register("dust_lapis", () -> new Item(new Item.Properties()));
+  public static final DeferredItem<Item> dust_copper = ITEMS.register("dust_copper", () -> new Item(new Item.Properties()));
+  public static final DeferredItem<Item> dust_quartz = ITEMS.register("dust_quartz", () -> new Item(new Item.Properties()));
 }

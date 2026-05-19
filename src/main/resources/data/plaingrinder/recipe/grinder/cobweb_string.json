@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:cobweb"
+  },
+  "result": {
+    "id": "minecraft:string",
+    "count": 1
+  }
+}

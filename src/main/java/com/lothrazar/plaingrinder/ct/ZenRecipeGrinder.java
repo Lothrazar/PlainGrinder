@@ -11,6 +11,7 @@ import com.lothrazar.plaingrinder.ModPlainGrinder;
 import com.lothrazar.plaingrinder.RegistryGrinder;
 import com.lothrazar.plaingrinder.grind.GrindRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 
 @SuppressWarnings("rawtypes")
@@ -27,11 +28,13 @@ public class ZenRecipeGrinder implements IRecipeManager {
   @ZenCodeType.Method
   public void addRecipe(String name, IIngredient input, IItemStack output) {
     name = fixRecipeName(name);
-    GrindRecipe m = new GrindRecipe(new ResourceLocation("crafttweaker", name),
+    GrindRecipe recipe = new GrindRecipe(
         input.asVanillaIngredient(),
         output.asImmutable().getInternal());
-    CraftTweakerAPI.apply(new ActionAddRecipe<GrindRecipe>(this, m, ""));
-    ModPlainGrinder.LOGGER.info("crafttweaker: Recipe loaded " + m.getId().toString());
+    RecipeHolder<GrindRecipe> holder = new RecipeHolder<>(
+        ResourceLocation.fromNamespaceAndPath("crafttweaker", name), recipe);
+    CraftTweakerAPI.apply(new ActionAddRecipe<GrindRecipe>(this, holder, ""));
+    ModPlainGrinder.LOGGER.info("crafttweaker: Recipe loaded " + name);
   }
 
   @ZenCodeType.Method

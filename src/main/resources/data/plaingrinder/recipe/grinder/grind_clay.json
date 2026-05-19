@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:clay"
+  },
+  "result": {
+    "id": "minecraft:clay_ball",
+    "count": 4
+  }
+}

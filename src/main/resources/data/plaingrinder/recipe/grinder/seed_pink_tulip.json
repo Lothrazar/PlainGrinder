@@ -1,0 +1,16 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:pink_tulip"
+  },
+  "result": {
+    "id": "flowerseeds:pink_tulip_seed",
+    "count": 2
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "flowerseeds",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

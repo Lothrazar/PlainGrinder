@@ -1,0 +1,25 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "tag": "c:obsidian"
+  },
+  "result": {
+    "id": "mekanism:dust_obsidian",
+    "count": 4
+  },
+  "neoforge:conditions": [
+    {
+      "values": [
+        {
+          "modid": "mekanism",
+          "type": "neoforge:mod_loaded"
+        },
+        {
+          "item": "mekanism:dust_obsidian",
+          "type": "neoforge:item_exists"
+        }
+      ],
+      "type": "neoforge:and"
+    }
+  ]
+}

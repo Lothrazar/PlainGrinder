@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:bookshelf"
+  },
+  "result": {
+    "id": "minecraft:book",
+    "count": 3
+  }
+}

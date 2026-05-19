@@ -1,0 +1,21 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "tag": "c:ores/sulfur"
+  },
+  "result": {
+    "id": "thermal:sulfur_dust",
+    "count": 2
+  },
+  "neoforge:conditions": [
+    {
+      "values": [
+        {
+          "item": "thermal:sulfur_dust",
+          "type": "neoforge:item_exists"
+        }
+      ],
+      "type": "neoforge:and"
+    }
+  ]
+}

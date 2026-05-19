@@ -1,0 +1,16 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:oxeye_daisy"
+  },
+  "result": {
+    "id": "flowerseeds:oxeye_daisy_seed",
+    "count": 2
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "flowerseeds",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

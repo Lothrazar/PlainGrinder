@@ -1,0 +1,25 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "tag": "c:ingots/netherite"
+  },
+  "result": {
+    "id": "mekanism:dust_netherite",
+    "count": 1
+  },
+  "neoforge:conditions": [
+    {
+      "values": [
+        {
+          "modid": "mekanism",
+          "type": "neoforge:mod_loaded"
+        },
+        {
+          "item": "mekanism:dust_netherite",
+          "type": "neoforge:item_exists"
+        }
+      ],
+      "type": "neoforge:and"
+    }
+  ]
+}

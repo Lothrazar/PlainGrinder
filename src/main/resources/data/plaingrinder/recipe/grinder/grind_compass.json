@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:compass"
+  },
+  "result": {
+    "id": "minecraft:iron_ingot",
+    "count": 4
+  }
+}

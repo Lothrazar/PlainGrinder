@@ -1,0 +1,25 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "tag": "c:ores/uranium"
+  },
+  "result": {
+    "id": "mekanism:dust_uranium",
+    "count": 2
+  },
+  "neoforge:conditions": [
+    {
+      "values": [
+        {
+          "modid": "mekanism",
+          "type": "neoforge:mod_loaded"
+        },
+        {
+          "item": "mekanism:dust_uranium",
+          "type": "neoforge:item_exists"
+        }
+      ],
+      "type": "neoforge:and"
+    }
+  ]
+}

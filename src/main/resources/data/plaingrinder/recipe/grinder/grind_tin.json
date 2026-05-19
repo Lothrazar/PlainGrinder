@@ -1,0 +1,25 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "tag": "c:ores/tin"
+  },
+  "result": {
+    "id": "mekanism:dust_tin",
+    "count": 2
+  },
+  "neoforge:conditions": [
+    {
+      "values": [
+        {
+          "modid": "mekanism",
+          "type": "neoforge:mod_loaded"
+        },
+        {
+          "item": "mekanism:dust_tin",
+          "type": "neoforge:item_exists"
+        }
+      ],
+      "type": "neoforge:and"
+    }
+  ]
+}

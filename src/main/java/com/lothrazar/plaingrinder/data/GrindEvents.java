@@ -9,14 +9,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 public class GrindEvents {
 
   @SubscribeEvent
   public void onHit(PlayerInteractEvent.RightClickBlock event) {
     if (event.getHand() == InteractionHand.OFF_HAND) {
+
       return;
     }
     BlockPos pos = event.getPos();

@@ -1,0 +1,16 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:poppy"
+  },
+  "result": {
+    "id": "flowerseeds:poppy_seed",
+    "count": 2
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "flowerseeds",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

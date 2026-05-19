@@ -1,0 +1,24 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:glowstone"
+  },
+  "result": {
+    "id": "minecraft:glowstone_dust",
+    "count": 4
+  },
+  "neoforge:conditions": [
+    {
+      "values": [
+        {
+          "item": "minecraft:glowstone",
+          "type": "neoforge:item_exists"
+        },
+        {
+          "type": "neoforge:true"
+        }
+      ],
+      "type": "neoforge:and"
+    }
+  ]
+}

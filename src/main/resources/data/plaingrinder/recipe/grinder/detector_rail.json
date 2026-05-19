@@ -1,0 +1,10 @@
+﻿{
+  "type": "plaingrinder:grinder",
+  "input": {
+    "item": "minecraft:detector_rail"
+  },
+  "result": {
+    "id": "minecraft:iron_nugget",
+    "count": 8
+  }
+}

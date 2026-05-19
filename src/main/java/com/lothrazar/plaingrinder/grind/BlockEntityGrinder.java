@@ -4,7 +4,7 @@ import com.lothrazar.plaingrinder.ConfigPlainGrinder;
 import com.lothrazar.plaingrinder.RegistryGrinder;
 import com.lothrazar.plaingrinder.data.ItemStackHandlerWrapper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
@@ -13,15 +13,14 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Container {
 
@@ -30,13 +29,16 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
   ItemStackHandler inputSlots = new ItemStackHandler(1);
   ItemStackHandler outputSlots = new ItemStackHandler(1);
   private ItemStackHandlerWrapper inventory = new ItemStackHandlerWrapper(inputSlots, outputSlots);
-  private LazyOptional<IItemHandler> inventoryCap = LazyOptional.of(() -> inventory);
   private int stage = 0;
   private int timer = 0;
   private int emptyHits = 0;
 
   public BlockEntityGrinder(BlockPos pos, BlockState state) {
     super(RegistryGrinder.TE_GRINDER.get(), pos, state);
+  }
+
+  public IItemHandler getInventory() {
+    return inventory;
   }
 
   private void tick() {
@@ -64,19 +66,20 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
 
   private void doProcess() {
     stage = 0;
-    ItemStack input = this.inputSlots.getStackInSlot(0);
-    if (input.isEmpty()) {
+    ItemStack inputItem = this.inputSlots.getStackInSlot(0);
+    if (inputItem.isEmpty()) {
       return;
     }
     GrindRecipe currentRecipe = this.findMatchingRecipe();
-    if (currentRecipe != null && this.tryProcessRecipe(currentRecipe)) {
+    SingleRecipeInput recipeInput = new SingleRecipeInput(inputItem);
+    if (currentRecipe != null && this.tryProcessRecipe(currentRecipe, recipeInput)) {
       //we did it
       //pay all costs, RF etc
       if (level.isClientSide == false) {
         //server so process
         this.inputSlots.getStackInSlot(0).shrink(1);
-        //and then insert it for real 
-        this.outputSlots.insertItem(0, currentRecipe.assemble(this, level.registryAccess()), false);
+        //and then insert it for real
+        this.outputSlots.insertItem(0, currentRecipe.assemble(recipeInput, level.registryAccess()), false);
         //and sound on the trigger
         level.levelEvent((Player) null, 1042, worldPosition, 0);
         // update comparator outputs
@@ -89,10 +92,10 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
     return RegistryGrinder.GRINDER.get();
   }
 
-  private boolean tryProcessRecipe(GrindRecipe currentRecipe) {
+  private boolean tryProcessRecipe(GrindRecipe currentRecipe, SingleRecipeInput recipeInput) {
     // ok so do the thing
-    ItemStack result = currentRecipe.assemble(this, level.registryAccess());
-    //does it match? does it fit into the output slot 
+    ItemStack result = currentRecipe.assemble(recipeInput, level.registryAccess());
+    //does it match? does it fit into the output slot
     //insert in simulate mode. does it fit?
     if (this.outputSlots.insertItem(0, result, true).isEmpty()) {
       return true;
@@ -101,39 +104,31 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
   }
 
   private GrindRecipe findMatchingRecipe() {
-    for (GrindRecipe rec : level.getRecipeManager().getAllRecipesFor(RegistryGrinder.GRINDER_RECIPE_TYPE.get())) {
-      if (rec.matches(this, level)) {
-        return rec;
+    SingleRecipeInput recipeInput = new SingleRecipeInput(this.inputSlots.getStackInSlot(0));
+    for (RecipeHolder<GrindRecipe> holder : level.getRecipeManager().getAllRecipesFor(RegistryGrinder.GRINDER_RECIPE_TYPE.get())) {
+      if (holder.value().matches(recipeInput, level)) {
+        return holder.value();
       }
     }
     return null;
   }
 
   @Override
-  public void load(CompoundTag tag) {
-    inventory.deserializeNBT(tag.getCompound(NBTINV));
+  protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    inventory.deserializeNBT(registries, tag.getCompound(NBTINV));
     stage = tag.getInt("grindstage");
     timer = tag.getInt("timer");
     emptyHits = tag.getInt("emptyHits");
-    super.load(tag);
+    super.loadAdditional(tag, registries);
   }
 
   @Override
-  public void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
-    tag.put(NBTINV, inventory.serializeNBT());
+  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    super.saveAdditional(tag, registries);
+    tag.put(NBTINV, inventory.serializeNBT(registries));
     tag.putInt("grindstage", stage);
     tag.putInt("timer", timer);
     tag.putInt("emptyHits", emptyHits);
-  }
-
-  @Override
-  public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-    if (cap == ForgeCapabilities.ITEM_HANDLER // CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-        && ConfigPlainGrinder.AUTOMATION_ALLOWED.get()) {
-      return inventoryCap.cast();
-    }
-    return super.getCapability(cap, side);
   }
 
   @Override

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import com.lothrazar.plaingrinder.ModPlainGrinder;
 import com.lothrazar.plaingrinder.RegistryGrinder;
+import com.lothrazar.plaingrinder.grind.GrindRecipe;
 import com.lothrazar.plaingrinder.grind.ScreenGrinder;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -20,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 @JeiPlugin
 public class PluginJEI implements IModPlugin {
 
-  private static final ResourceLocation ID = new ResourceLocation(ModPlainGrinder.MODID, "jei");
+  private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "jei");
 
   @Override
   public ResourceLocation getPluginUid() {
@@ -41,7 +42,12 @@ public class PluginJEI implements IModPlugin {
   @Override
   public void registerRecipes(IRecipeRegistration registry) {
     ClientLevel world = Objects.requireNonNull(Minecraft.getInstance().level);
-    registry.addRecipes(GrinderRecipeCategory.TYPE, List.copyOf(world.getRecipeManager().getAllRecipesFor(RegistryGrinder.GRINDER_RECIPE_TYPE.get())));
+    List<GrindRecipe> recipes = world.getRecipeManager()
+        .getAllRecipesFor(RegistryGrinder.GRINDER_RECIPE_TYPE.get())
+        .stream()
+        .map(holder -> holder.value())
+        .toList();
+    registry.addRecipes(GrinderRecipeCategory.TYPE, recipes);
   }
 
   @Override

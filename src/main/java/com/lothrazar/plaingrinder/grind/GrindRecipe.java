@@ -1,29 +1,26 @@
 package com.lothrazar.plaingrinder.grind;
 
-import com.google.gson.JsonObject;
-import com.lothrazar.plaingrinder.ModPlainGrinder;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.lothrazar.plaingrinder.RegistryGrinder;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 
-public class GrindRecipe implements Recipe<BlockEntityGrinder> {
+public class GrindRecipe implements Recipe<SingleRecipeInput> {
 
-  private final ResourceLocation id;
   private Ingredient input = Ingredient.EMPTY;
   private ItemStack result = ItemStack.EMPTY;
 
-  public GrindRecipe(ResourceLocation id, Ingredient input, ItemStack result) {
+  public GrindRecipe(Ingredient input, ItemStack result) {
     super();
-    this.id = id;
     this.input = input;
     this.result = result;
   }
@@ -38,19 +35,8 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
   }
 
   @Override
-  public boolean matches(BlockEntityGrinder inv, Level worldIn) {
-    for (ItemStack test : input.getItems()) {
-      if (matchingStacks(test, inv.inputSlots.getStackInSlot(0))) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public static boolean matchingStacks(ItemStack current, ItemStack in) {
-    //first one fails if size is off 
-    return ItemStack.isSameItem(current, in) // isSameIgnoreDurability
-        && ItemStack.isSameItemSameTags(current, in);
+  public boolean matches(SingleRecipeInput inv, Level worldIn) {
+    return input.test(inv.getItem(0));
   }
 
   @Override
@@ -59,22 +45,17 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
   }
 
   @Override
-  public ItemStack assemble(BlockEntityGrinder inv, RegistryAccess ra) {
+  public ItemStack assemble(SingleRecipeInput inv, HolderLookup.Provider ra) {
     return getResultItem(ra);
   }
 
   @Override
-  public ItemStack getResultItem(RegistryAccess ra) {
+  public ItemStack getResultItem(HolderLookup.Provider ra) {
     return result.copy();
   }
 
   public ItemStack getResultForDisplay() {
     return result.copy();
-  }
-
-  @Override
-  public ResourceLocation getId() {
-    return id;
   }
 
   @Override
@@ -89,45 +70,27 @@ public class GrindRecipe implements Recipe<BlockEntityGrinder> {
 
   public static class SerializeGrinderRecipe implements RecipeSerializer<GrindRecipe> {
 
-    public SerializeGrinderRecipe() {
-      // This registry name is what people will specify in their json files.
-      //      this.setRegistryName(new ResourceLocation(ModMain.MODID, "grinder"));
+    public static final MapCodec<GrindRecipe> CODEC = RecordCodecBuilder.mapCodec(instance ->
+        instance.group(
+            Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(r -> r.input),
+            ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result)
+        ).apply(instance, GrindRecipe::new));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, GrindRecipe> STREAM_CODEC = StreamCodec.composite(
+        Ingredient.CONTENTS_STREAM_CODEC, r -> r.input,
+        ItemStack.STREAM_CODEC, r -> r.result,
+        GrindRecipe::new);
+
+    public SerializeGrinderRecipe() {}
+
+    @Override
+    public MapCodec<GrindRecipe> codec() {
+      return CODEC;
     }
 
     @Override
-    public GrindRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-      GrindRecipe r = null;
-      try {
-        Ingredient inputFirst = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input"));
-        ItemStack resultStack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-        r = new GrindRecipe(recipeId, inputFirst, resultStack);
-        addRecipe(r);
-        return r;
-      }
-      catch (Exception e) {
-        ModPlainGrinder.LOGGER.error("Error loading recipe: " + recipeId, e);
-        return null;
-      }
+    public StreamCodec<RegistryFriendlyByteBuf, GrindRecipe> streamCodec() {
+      return STREAM_CODEC;
     }
-
-    @Override
-    public GrindRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-      GrindRecipe r = new GrindRecipe(recipeId, Ingredient.fromNetwork(buffer), buffer.readItem());
-      //server reading recipe from client or vice/versa 
-      addRecipe(r);
-      return r;
-    }
-
-    @Override
-    public void toNetwork(FriendlyByteBuf buffer, GrindRecipe recipe) {
-      recipe.input.toNetwork(buffer);
-      buffer.writeItem(recipe.result);
-    }
-  }
-
-  public static boolean addRecipe(GrindRecipe r) {
-    ResourceLocation id = r.getId();
-    ModPlainGrinder.LOGGER.info("Recipe loaded " + id.toString());
-    return true;
   }
 }
