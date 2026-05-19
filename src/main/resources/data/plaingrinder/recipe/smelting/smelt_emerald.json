@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "c:dusts/emerald"
   },
-  "result": "minecraft:emerald",
+  "result": { "id": "minecraft:emerald" },
   "experience": 1.0,
   "cookingtime": 200
 }

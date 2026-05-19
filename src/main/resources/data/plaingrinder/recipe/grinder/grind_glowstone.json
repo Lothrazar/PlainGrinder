@@ -7,18 +7,18 @@
     "id": "minecraft:glowstone_dust",
     "count": 4
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "values": [
         {
           "item": "minecraft:glowstone",
-          "type": "forge:item_exists"
+          "type": "neoforge:item_exists"
         },
         {
-          "type": "forge:true"
+          "type": "neoforge:true"
         }
       ],
-      "type": "forge:and"
+      "type": "neoforge:and"
     }
   ]
 }

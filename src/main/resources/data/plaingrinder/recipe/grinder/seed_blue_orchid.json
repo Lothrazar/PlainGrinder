@@ -7,10 +7,10 @@
     "id": "flowerseeds:blue_orchid_seed",
     "count": 2
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "modid": "flowerseeds",
-      "type": "forge:mod_loaded"
+      "type": "neoforge:mod_loaded"
     }
   ]
 }

@@ -17,6 +17,7 @@ public class GrindEvents {
   @SubscribeEvent
   public void onHit(PlayerInteractEvent.RightClickBlock event) {
     if (event.getHand() == InteractionHand.OFF_HAND) {
+
       return;
     }
     BlockPos pos = event.getPos();

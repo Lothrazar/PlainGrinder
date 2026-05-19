@@ -17,13 +17,13 @@
     "id": "plaingrinder:handle_auto",
     "count": 1
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": 
       {
        "tag": "c:nuggets/copper",
-        "type": "forge:tag_empty"
+        "type": "neoforge:tag_empty"
       }
     }
   ]

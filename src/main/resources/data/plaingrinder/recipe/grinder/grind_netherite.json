@@ -7,19 +7,19 @@
     "id": "mekanism:dust_netherite",
     "count": 1
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "values": [
         {
           "modid": "mekanism",
-          "type": "forge:mod_loaded"
+          "type": "neoforge:mod_loaded"
         },
         {
           "item": "mekanism:dust_netherite",
-          "type": "forge:item_exists"
+          "type": "neoforge:item_exists"
         }
       ],
-      "type": "forge:and"
+      "type": "neoforge:and"
     }
   ]
 }

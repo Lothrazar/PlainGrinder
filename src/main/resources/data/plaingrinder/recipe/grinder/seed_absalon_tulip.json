@@ -7,10 +7,10 @@
     "id": "flowerseedscyclic:absalon_tulip_seed",
     "count": 2
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "modid": "flowerseedscyclic",
-      "type": "forge:mod_loaded"
+      "type": "neoforge:mod_loaded"
     }
   ]
 }

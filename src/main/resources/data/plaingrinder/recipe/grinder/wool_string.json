@@ -7,13 +7,13 @@
     "id": "minecraft:string",
     "count": 2
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": 
       {
        "tag": "minecraft:wool",
-        "type": "forge:tag_empty"
+        "type": "neoforge:tag_empty"
       }
     }
   ]

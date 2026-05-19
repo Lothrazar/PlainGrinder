@@ -7,15 +7,15 @@
     "id": "thermal:sulfur_dust",
     "count": 2
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "values": [
         {
           "item": "thermal:sulfur_dust",
-          "type": "forge:item_exists"
+          "type": "neoforge:item_exists"
         }
       ],
-      "type": "forge:and"
+      "type": "neoforge:and"
     }
   ]
 }

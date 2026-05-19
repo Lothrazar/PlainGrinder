@@ -7,15 +7,15 @@
     "id": "thermal:ender_pearl_dust",
     "count": 1
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "values": [
         {
           "item": "thermal:ender_pearl_dust",
-          "type": "forge:item_exists"
+          "type": "neoforge:item_exists"
         }
       ],
-      "type": "forge:and"
+      "type": "neoforge:and"
     }
   ]
 }
