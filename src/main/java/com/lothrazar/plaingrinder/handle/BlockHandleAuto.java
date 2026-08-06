@@ -32,7 +32,7 @@ public class BlockHandleAuto extends BlockHandle implements EntityBlock {
   //cross impl from BaseEntityBlock
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-    return createTickerHelper(type, RegistryGrinder.TE_HANDLE.get(), world.isClientSide ? BlockEntityHandleAuto::clientTick : BlockEntityHandleAuto::serverTick);
+    return createTickerHelper(type, RegistryGrinder.TE_HANDLE.get(), world.isClientSide() ? BlockEntityHandleAuto::clientTick : BlockEntityHandleAuto::serverTick);
   }
 
   @Override

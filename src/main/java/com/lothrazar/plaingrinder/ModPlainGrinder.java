@@ -3,7 +3,7 @@ package com.lothrazar.plaingrinder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.lothrazar.plaingrinder.data.GrindEvents;
-import com.lothrazar.plaingrinder.grind.BlockEntityGrinder;
+import com.lothrazar.plaingrinder.data.IItemHandlerResourceHandler;
 import com.lothrazar.plaingrinder.grind.ScreenGrinder;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -49,8 +49,8 @@ public class ModPlainGrinder {
 
   private void registerCapabilities(RegisterCapabilitiesEvent event) {
     event.registerBlockEntity(
-        Capabilities.ItemHandler.BLOCK,
+        Capabilities.Item.BLOCK,
         RegistryGrinder.TE_GRINDER.get(),
-        (be, side) -> ConfigPlainGrinder.AUTOMATION_ALLOWED.get() ? be.getInventory() : null);
+        (be, side) -> ConfigPlainGrinder.AUTOMATION_ALLOWED.get() ? new IItemHandlerResourceHandler(be.getInventory()) : null);
   }
 }

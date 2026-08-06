@@ -10,7 +10,7 @@ import com.blamejared.crafttweaker.api.recipe.manager.base.IRecipeManager;
 import com.lothrazar.plaingrinder.ModPlainGrinder;
 import com.lothrazar.plaingrinder.RegistryGrinder;
 import com.lothrazar.plaingrinder.grind.GrindRecipe;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -32,7 +32,7 @@ public class ZenRecipeGrinder implements IRecipeManager {
         input.asVanillaIngredient(),
         output.asImmutable().getInternal());
     RecipeHolder<GrindRecipe> holder = new RecipeHolder<>(
-        ResourceLocation.fromNamespaceAndPath("crafttweaker", name), recipe);
+        Identifier.fromNamespaceAndPath("crafttweaker", name), recipe);
     CraftTweakerAPI.apply(new ActionAddRecipe<GrindRecipe>(this, holder, ""));
     ModPlainGrinder.LOGGER.info("crafttweaker: Recipe loaded " + name);
   }

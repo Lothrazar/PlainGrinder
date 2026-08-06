@@ -22,7 +22,7 @@ public class GrindEvents {
     }
     BlockPos pos = event.getPos();
     Player player = event.getEntity();
-    Level world = player.getCommandSenderWorld();
+    Level world = player.level();
     BlockState state = world.getBlockState(pos);
     if (state.getBlock() == RegistryGrinder.handle.get()) {
       BlockState below = world.getBlockState(pos.below());
@@ -31,7 +31,7 @@ public class GrindEvents {
         BlockEntityGrinder tile = (BlockEntityGrinder) world.getBlockEntity(pos.below());
         if (tile.canGrind()) {
           // and state
-          if (world.isClientSide == false) {
+          if (world.isClientSide() == false) {
             Direction old = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
             world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.HORIZONTAL_FACING, old.getCounterClockWise()));
             tile.incrementGrind();

@@ -1,7 +1,6 @@
 package com.lothrazar.plaingrinder.jei;
 
 import java.util.List;
-import java.util.Objects;
 import com.lothrazar.plaingrinder.ModPlainGrinder;
 import com.lothrazar.plaingrinder.RegistryGrinder;
 import com.lothrazar.plaingrinder.grind.GrindRecipe;
@@ -14,17 +13,17 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemStack;
 
 @JeiPlugin
 public class PluginJEI implements IModPlugin {
 
-  private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "jei");
+  private static final Identifier ID = Identifier.fromNamespaceAndPath(ModPlainGrinder.MODID, "jei");
 
   @Override
-  public ResourceLocation getPluginUid() {
+  public Identifier getPluginUid() {
     return ID;
   }
 
@@ -39,11 +38,19 @@ public class PluginJEI implements IModPlugin {
     registry.addRecipeCategories(new GrinderRecipeCategory(guiHelper));
   }
 
+  // Full Recipe objects are no longer synced to the client at all (only recipe-book display data is,
+  // via ClientRecipeContainer). Reading the local integrated server's RecipeManager directly is the only
+  // way to get real GrindRecipe instances here; this only works in singleplayer/LAN-hosted worlds, so a
+  // JEI-connected dedicated-server client simply won't see this category populated.
   @Override
   public void registerRecipes(IRecipeRegistration registry) {
-    ClientLevel world = Objects.requireNonNull(Minecraft.getInstance().level);
-    List<GrindRecipe> recipes = world.getRecipeManager()
-        .getAllRecipesFor(RegistryGrinder.GRINDER_RECIPE_TYPE.get())
+    MinecraftServer server = Minecraft.getInstance().getSingleplayerServer();
+    if (server == null) {
+      return;
+    }
+    List<GrindRecipe> recipes = server.getRecipeManager()
+        .recipeMap()
+        .byType(RegistryGrinder.GRINDER_RECIPE_TYPE.get())
         .stream()
         .map(holder -> holder.value())
         .toList();

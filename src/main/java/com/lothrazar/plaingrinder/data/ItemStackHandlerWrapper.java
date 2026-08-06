@@ -1,9 +1,9 @@
 package com.lothrazar.plaingrinder.data;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -18,7 +18,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
  * Note that the above only applies to operations on the wrapper, the backing handlers are not restricted. For persistence, either the backing {@link ItemStackHandler}s can be saved, or the wrapper
  * itself.
  */
-public class ItemStackHandlerWrapper implements IItemHandler, IItemHandlerModifiable, INBTSerializable<CompoundTag> {
+public class ItemStackHandlerWrapper implements IItemHandler, IItemHandlerModifiable, ValueIOSerializable {
 
   public static final String NBT_INPUT = "Input";
   public static final String NBT_OUTPUT = "Output";
@@ -89,17 +89,15 @@ public class ItemStackHandlerWrapper implements IItemHandler, IItemHandlerModifi
   }
 
   @Override
-  public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-    CompoundTag cmp = new CompoundTag();
-    cmp.put(NBT_INPUT, input.serializeNBT(provider));
-    cmp.put(NBT_OUTPUT, output.serializeNBT(provider));
-    return cmp;
+  public void serialize(ValueOutput out) {
+    input.serialize(out.child(NBT_INPUT));
+    output.serialize(out.child(NBT_OUTPUT));
   }
 
   @Override
-  public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-    input.deserializeNBT(provider, nbt.getCompound(NBT_INPUT));
-    output.deserializeNBT(provider, nbt.getCompound(NBT_OUTPUT));
+  public void deserialize(ValueInput in) {
+    input.deserialize(in.childOrEmpty(NBT_INPUT));
+    output.deserialize(in.childOrEmpty(NBT_OUTPUT));
   }
 
   @FunctionalInterface

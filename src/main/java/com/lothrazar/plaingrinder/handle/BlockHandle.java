@@ -28,13 +28,6 @@ public class BlockHandle extends BlockFlib {
   public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
     return AABB;
   }
-  //
-  //  @Override
-  //  @OnlyIn(Dist.CLIENT)
-  //  public void appendHoverText(ItemStack stack, BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-  //    tooltip.add(Component.translatable(getDescriptionId() + ".tooltip").withStyle(ChatFormatting.GRAY));
-  //  }
-
   @Override
   public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
     if (entity != null) {
@@ -48,7 +41,7 @@ public class BlockHandle extends BlockFlib {
   }
 
   public static Direction getFacingFromEntity(BlockPos clickedBlock, LivingEntity entity) {
-    Direction d = Direction.getNearest(
+    Direction d = Direction.getApproximateNearest(
         (float) (entity.xOld - clickedBlock.getX()),
         (float) (entity.yOld - clickedBlock.getY()),
         (float) (entity.zOld - clickedBlock.getZ()));

@@ -4,12 +4,12 @@ import com.lothrazar.plaingrinder.RegistryGrinder;
 import com.lothrazar.plaingrinder.grind.BlockEntityGrinder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class BlockEntityHandleAuto extends BlockEntity {
 
@@ -20,15 +20,15 @@ public class BlockEntityHandleAuto extends BlockEntity {
   }
 
   @Override
-  protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-    super.loadAdditional(tag, registries);
-    timer = tag.getInt("timer");
+  protected void loadAdditional(ValueInput input) {
+    super.loadAdditional(input);
+    timer = input.getIntOr("timer", 0);
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-    super.saveAdditional(tag, registries);
-    tag.putInt("timer", timer);
+  protected void saveAdditional(ValueOutput output) {
+    super.saveAdditional(output);
+    output.putInt("timer", timer);
   }
 
   public static void clientTick(Level level, BlockPos blockPos, BlockState blockState, BlockEntityHandleAuto tileGrinder) {}

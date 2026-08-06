@@ -2,17 +2,18 @@ package com.lothrazar.plaingrinder.grind;
 
 import com.lothrazar.library.gui.TexturedProgress;
 import com.lothrazar.plaingrinder.ModPlainGrinder;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class ScreenGrinder extends AbstractContainerScreen<ContainerGrinder> {
 
-  public static final ResourceLocation INVENTORY = ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/gui/inventory.png");
-  public static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/gui/slot.png");
-  public static final ResourceLocation SAW = ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/gui/saw.png");
+  public static final Identifier INVENTORY = Identifier.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/gui/inventory.png");
+  public static final Identifier SLOT = Identifier.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/gui/slot.png");
+  public static final Identifier SAW = Identifier.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/gui/saw.png");
   private TexturedProgress progress;
   final int size = 18;
 
@@ -29,28 +30,21 @@ public class ScreenGrinder extends AbstractContainerScreen<ContainerGrinder> {
   }
 
   @Override
-  protected void renderBg(GuiGraphics ms, float partialTicks, int x, int y) {
-    //    super.drawGuiContainerForegroundLayer(ms, x, y);
+  public void extractBackground(GuiGraphicsExtractor ms, int mouseX, int mouseY, float partialTicks) {
+    super.extractBackground(ms, mouseX, mouseY, partialTicks);
     this.drawBackground(ms, INVENTORY);
   }
 
-  @Override
-  public void render(GuiGraphics ms, int mouseX, int mouseY, float partialTicks) {
-    this.renderBackground(ms, mouseX, mouseY, partialTicks);
-    super.render(ms, mouseX, mouseY, partialTicks);
-    this.renderTooltip(ms, mouseX, mouseY);
-  }
-
-  protected void drawBackground(GuiGraphics ms, ResourceLocation gui) {
+  protected void drawBackground(GuiGraphicsExtractor ms, Identifier gui) {
     int relX = (this.width - this.imageWidth) / 2;
     int relY = (this.height - this.imageHeight) / 2;
-    ms.blit(gui, relX, relY, 0, 0, this.imageWidth, this.imageHeight);
+    ms.blit(RenderPipelines.GUI_TEXTURED, gui, relX, relY, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
     this.drawSlot(ms, 54, 34);
     this.drawSlot(ms, 108, 34);
   }
 
-  protected void drawSlot(GuiGraphics ms, int x, int y) {
-    ms.blit(SLOT, leftPos + x, topPos + y, 0, 0, size, size, size, size);
+  protected void drawSlot(GuiGraphicsExtractor ms, int x, int y) {
+    ms.blit(RenderPipelines.GUI_TEXTURED, SLOT, leftPos + x, topPos + y, 0.0F, 0.0F, size, size, size, size);
     //
     final int max = menu.tile.getMaxStage();
     progress.max = max;

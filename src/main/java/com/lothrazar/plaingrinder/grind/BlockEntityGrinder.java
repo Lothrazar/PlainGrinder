@@ -4,9 +4,8 @@ import com.lothrazar.plaingrinder.ConfigPlainGrinder;
 import com.lothrazar.plaingrinder.RegistryGrinder;
 import com.lothrazar.plaingrinder.data.ItemStackHandlerWrapper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,6 +18,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
@@ -75,11 +76,11 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
     if (currentRecipe != null && this.tryProcessRecipe(currentRecipe, recipeInput)) {
       //we did it
       //pay all costs, RF etc
-      if (level.isClientSide == false) {
+      if (level.isClientSide() == false) {
         //server so process
         this.inputSlots.getStackInSlot(0).shrink(1);
         //and then insert it for real
-        this.outputSlots.insertItem(0, currentRecipe.assemble(recipeInput, level.registryAccess()), false);
+        this.outputSlots.insertItem(0, currentRecipe.assemble(recipeInput), false);
         //and sound on the trigger
         level.levelEvent((Player) null, 1042, worldPosition, 0);
         // update comparator outputs
@@ -94,7 +95,7 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
 
   private boolean tryProcessRecipe(GrindRecipe currentRecipe, SingleRecipeInput recipeInput) {
     // ok so do the thing
-    ItemStack result = currentRecipe.assemble(recipeInput, level.registryAccess());
+    ItemStack result = currentRecipe.assemble(recipeInput);
     //does it match? does it fit into the output slot
     //insert in simulate mode. does it fit?
     if (this.outputSlots.insertItem(0, result, true).isEmpty()) {
@@ -105,30 +106,28 @@ public class BlockEntityGrinder extends BlockEntity implements MenuProvider, Con
 
   private GrindRecipe findMatchingRecipe() {
     SingleRecipeInput recipeInput = new SingleRecipeInput(this.inputSlots.getStackInSlot(0));
-    for (RecipeHolder<GrindRecipe> holder : level.getRecipeManager().getAllRecipesFor(RegistryGrinder.GRINDER_RECIPE_TYPE.get())) {
-      if (holder.value().matches(recipeInput, level)) {
-        return holder.value();
-      }
-    }
-    return null;
+    return ((ServerLevel) level).recipeAccess()
+        .getRecipeFor(RegistryGrinder.GRINDER_RECIPE_TYPE.get(), recipeInput, level)
+        .map(RecipeHolder::value)
+        .orElse(null);
   }
 
   @Override
-  protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-    inventory.deserializeNBT(registries, tag.getCompound(NBTINV));
-    stage = tag.getInt("grindstage");
-    timer = tag.getInt("timer");
-    emptyHits = tag.getInt("emptyHits");
-    super.loadAdditional(tag, registries);
+  protected void loadAdditional(ValueInput input) {
+    super.loadAdditional(input);
+    inventory.deserialize(input.childOrEmpty(NBTINV));
+    stage = input.getIntOr("grindstage", 0);
+    timer = input.getIntOr("timer", 0);
+    emptyHits = input.getIntOr("emptyHits", 0);
   }
 
   @Override
-  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-    super.saveAdditional(tag, registries);
-    tag.put(NBTINV, inventory.serializeNBT(registries));
-    tag.putInt("grindstage", stage);
-    tag.putInt("timer", timer);
-    tag.putInt("emptyHits", emptyHits);
+  protected void saveAdditional(ValueOutput output) {
+    super.saveAdditional(output);
+    inventory.serialize(output.child(NBTINV));
+    output.putInt("grindstage", stage);
+    output.putInt("timer", timer);
+    output.putInt("emptyHits", emptyHits);
   }
 
   @Override

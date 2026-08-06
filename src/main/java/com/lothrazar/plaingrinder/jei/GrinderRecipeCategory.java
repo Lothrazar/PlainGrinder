@@ -14,21 +14,21 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class GrinderRecipeCategory implements IRecipeCategory<GrindRecipe> {
 
-  public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "grinder");
+  public static final Identifier ID = Identifier.fromNamespaceAndPath(ModPlainGrinder.MODID, "grinder");
   static final RecipeType<GrindRecipe> TYPE = new RecipeType<>(ID, GrindRecipe.class);
   private IDrawable gui;
   private IDrawable icon;
   private TexturedProgress progress;
 
   public GrinderRecipeCategory(IGuiHelper helper) {
-    gui = helper.drawableBuilder(ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/gui/jei.png"), 0, 0, 130, 20).setTextureSize(130, 20).build();
-    icon = helper.drawableBuilder(ResourceLocation.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/block/grinder_top.png"), 0, 0, 16, 16).setTextureSize(16, 16).build();
+    gui = helper.drawableBuilder(Identifier.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/gui/jei.png"), 0, 0, 130, 20).setTextureSize(130, 20).build();
+    icon = helper.drawableBuilder(Identifier.fromNamespaceAndPath(ModPlainGrinder.MODID, "textures/block/grinder_top.png"), 0, 0, 16, 16).setTextureSize(16, 16).build();
     this.progress = new TexturedProgress(Minecraft.getInstance().font, 58, 2, ScreenGrinder.SAW);
   }
 
@@ -59,7 +59,7 @@ public class GrinderRecipeCategory implements IRecipeCategory<GrindRecipe> {
   }
 
   @Override
-  public void draw(GrindRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics ms, double mouseX, double mouseY) {
+  public void draw(GrindRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor ms, double mouseX, double mouseY) {
     gui.draw(ms, 0, 0);
     progress.draw(ms, 1);
   }
