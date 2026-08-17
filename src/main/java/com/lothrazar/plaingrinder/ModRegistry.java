@@ -5,7 +5,9 @@ import com.lothrazar.plaingrinder.grind.GrindRecipe;
 import com.lothrazar.plaingrinder.grind.TileGrinder;
 import com.lothrazar.plaingrinder.handle.BlockHandle;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -22,6 +24,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -38,6 +41,7 @@ public class ModRegistry {
   public static Block B_HANDLE;
   public static Block B_GRINDER;
   private static final List<Item> ITEMS = new ArrayList<>();
+  private static final Map<Item, String> ORE_DICT = new LinkedHashMap<>();
 
   private static Block register(Block block, String name) {
     block.setRegistryName(new ResourceLocation(ModMain.MODID, name));
@@ -47,10 +51,17 @@ public class ModRegistry {
   }
 
   private static Item register(Item item, String name) {
+    return register(item, name, null);
+  }
+
+  private static Item register(Item item, String name, String oreDictName) {
     item.setRegistryName(new ResourceLocation(ModMain.MODID, name));
     item.setTranslationKey(name);
     item.setCreativeTab(GROUP);
     ITEMS.add(item);
+    if (oreDictName != null) {
+      ORE_DICT.put(item, oreDictName);
+    }
     return item;
   }
 
@@ -67,14 +78,17 @@ public class ModRegistry {
     event.getRegistry().registerAll(
         register(new ItemBlock(B_GRINDER), "grinder"),
         register(new ItemBlock(B_HANDLE), "handle"),
-        register(new ItemDustBurnable(), "dust_coal"),
-        register(new Item(), "dust_diamond"),
-        register(new Item(), "dust_gold"),
-        register(new Item(), "dust_iron"),
-        register(new Item(), "dust_emerald"),
-        register(new Item(), "dust_lapis"),
-        register(new ItemDustBurnable(), "dust_charcoal"),
-        register(new Item(), "dust_quartz"));
+        register(new ItemDustBurnable(), "dust_coal", "dustCoal"),
+        register(new Item(), "dust_diamond", "dustDiamond"),
+        register(new Item(), "dust_gold", "dustGold"),
+        register(new Item(), "dust_iron", "dustIron"),
+        register(new Item(), "dust_emerald", "dustEmerald"),
+        register(new Item(), "dust_lapis", "dustLapis"),
+        register(new ItemDustBurnable(), "dust_charcoal", "dustCharcoal"),
+        register(new Item(), "dust_quartz", "dustQuartz"));
+    for (Map.Entry<Item, String> entry : ORE_DICT.entrySet()) {
+      OreDictionary.registerOre(entry.getValue(), entry.getKey());
+    }
   }
 
   @SubscribeEvent
@@ -101,6 +115,26 @@ public class ModRegistry {
             "cc", "cc",
             'c', new ItemStack(ModRegistry.itemDustCoal()))
             .setRegistryName(new ResourceLocation(ModMain.MODID, "coal_block_from_dust")));
+    event.getRegistry().register(
+        new ShapedOreRecipe(new ResourceLocation(ModMain.MODID, "handle"),
+            new ItemStack(B_HANDLE),
+            "ti ", " t ", " t ",
+            't', Items.STICK,
+            'i', Items.IRON_NUGGET)
+            .setRegistryName(new ResourceLocation(ModMain.MODID, "handle")));
+    event.getRegistry().register(
+        new ShapedOreRecipe(new ResourceLocation(ModMain.MODID, "torch_charcoal"),
+            new ItemStack(Blocks.TORCH, 2),
+            "c ", "s ",
+            'c', "dustCharcoal",
+            's', Items.STICK)
+            .setRegistryName(new ResourceLocation(ModMain.MODID, "torch_charcoal")));
+    GameRegistry.addSmelting(new ItemStack(Item.getByNameOrId(ModMain.MODID + ":dust_diamond")), new ItemStack(Items.DIAMOND), 1.0F);
+    GameRegistry.addSmelting(new ItemStack(Item.getByNameOrId(ModMain.MODID + ":dust_emerald")), new ItemStack(Items.EMERALD), 1.0F);
+    GameRegistry.addSmelting(new ItemStack(Item.getByNameOrId(ModMain.MODID + ":dust_gold")), new ItemStack(Items.GOLD_INGOT), 1.0F);
+    GameRegistry.addSmelting(new ItemStack(Item.getByNameOrId(ModMain.MODID + ":dust_iron")), new ItemStack(Items.IRON_INGOT), 1.0F);
+    GameRegistry.addSmelting(new ItemStack(Item.getByNameOrId(ModMain.MODID + ":dust_lapis")), new ItemStack(Items.DYE, 1, 4), 1.0F);
+    GameRegistry.addSmelting(new ItemStack(Item.getByNameOrId(ModMain.MODID + ":dust_quartz")), new ItemStack(Items.QUARTZ), 1.0F);
     GrindRecipe.initRecipes();
   }
 
