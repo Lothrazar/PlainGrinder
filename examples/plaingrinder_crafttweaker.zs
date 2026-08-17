@@ -1,15 +1,14 @@
-// https://docs.blamejared.com/
+// 1.12.2 CraftTweaker2 / ZenScript syntax
 
-var grinder = <recipetype:plaingrinder:grinder>;
+import mods.plaingrinder.Grinder;
 
-// delete recipe example 
-//show advanced tooltips in minecraft and use JEI is one way to see these IDs
-grinder.removeRecipe("plaingrinder:grind_emerald");
+// delete recipe example
+// show advanced tooltips in minecraft and use JEI to see item ids
+// removeRecipe matches by OUTPUT item, since 1.12.2 recipes have no name/id
+Grinder.removeRecipe(<plaingrinder:dust_emerald>);
 
+// add recipes. output count is set with * amount
+// IIngredient input, IItemStack output
+Grinder.addRecipe(<minecraft:flint>, <minecraft:ghast_tear> * 16);
 
-// add recipes. 
-// IMPORTANT: the name must be unique
-grinder.addRecipe("ghast_tear_test1", <item:minecraft:flint>, <item:minecraft:ghast_tear> * 16);
-
-grinder.addRecipe("ghast_tear_test2", <item:minecraft:ghast_tear>, <item:minecraft:dirt>);
-
+Grinder.addRecipe(<minecraft:ghast_tear>, <minecraft:dirt>);

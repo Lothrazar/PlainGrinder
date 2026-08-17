@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "plaingrinder:block/grinder" }
+        "normal": { "model": "plaingrinder:grinder" }
     }
 }

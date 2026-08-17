@@ -1,83 +1,66 @@
 package com.lothrazar.plaingrinder.grind;
 
+import com.lothrazar.plaingrinder.ModMain;
 import java.util.List;
+import javax.annotation.Nullable;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockGrinder extends Block {
 
-  public BlockGrinder(Properties properties) {
-    super(properties);
+  public BlockGrinder(Material material) {
+    super(material);
+    this.setHardness(0.9F);
   }
 
   @Override
-  public boolean hasTileEntity(BlockState state) {
+  public boolean hasTileEntity(IBlockState state) {
     return true;
   }
 
   @Override
-  public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+  public TileEntity createTileEntity(World world, IBlockState state) {
     return new TileGrinder();
   }
 
   @Override
-  public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+  public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
     if (!world.isRemote) {
-      TileEntity tileEntity = world.getTileEntity(pos);
-      if (tileEntity instanceof INamedContainerProvider) {
-        //          tileEntity.markDirty();
-        NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, tileEntity.getPos());
-      }
-      else {
-        throw new IllegalStateException("Our named container provider is missing!");
-      }
+      player.openGui(ModMain.instance, ModMain.GUI_GRINDER, world, pos.getX(), pos.getY(), pos.getZ());
     }
-    return ActionResultType.SUCCESS;
-  }
-
-  @SuppressWarnings("deprecation")
-  @Override
-  public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    if (state.getBlock() != newState.getBlock()) {
-      TileEntity tileentity = worldIn.getTileEntity(pos);
-      if (tileentity != null) {
-        IItemHandler items = tileentity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
-        if (items != null) {
-          for (int i = 0; i < items.getSlots(); ++i) {
-            InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), items.getStackInSlot(i));
-          }
-          worldIn.updateComparatorOutputLevel(pos, this);
-        }
-      }
-      super.onReplaced(state, worldIn, pos, newState, isMoving);
-    }
+    return true;
   }
 
   @Override
-  @OnlyIn(Dist.CLIENT)
-  public void addInformation(ItemStack stack, IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    TranslationTextComponent t = new TranslationTextComponent(getTranslationKey() + ".tooltip");
-    tooltip.add(t.mergeStyle(TextFormatting.GRAY));
+  public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+    TileEntity tileentity = worldIn.getTileEntity(pos);
+    if (tileentity instanceof IInventory) {
+      InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
+      worldIn.updateComparatorOutputLevel(pos, this);
+    }
+    super.breakBlock(worldIn, pos, state);
+  }
+
+  @Override
+  @SideOnly(Side.CLIENT)
+  public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+    ITextComponent t = new TextComponentTranslation(getTranslationKey() + ".tooltip");
+    tooltip.add(TextFormatting.GRAY + t.getFormattedText());
   }
 }

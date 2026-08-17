@@ -1,0 +1,20 @@
+[
+  {
+    "modid": "plaingrinder",
+    "name": "Plain Grinder",
+    "description": "A simple hand-crank grinder block that turns ores and other items into dusts and byproducts.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/plain-grinder",
+    "updateUrl": "https://raw.githubusercontent.com/Lothrazar/PlainGrinder/trunk/1.12/update.json",
+    "authorList": [ "Lothrazar" ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [ ],
+    "parent": "",
+    "requiredMods": [ "Forge" ],
+    "dependencies": [ ],
+    "dependants": [ ],
+    "useDependencyInformation": false
+  }
+]

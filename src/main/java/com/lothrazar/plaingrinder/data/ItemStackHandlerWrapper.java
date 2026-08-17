@@ -1,7 +1,7 @@
 package com.lothrazar.plaingrinder.data;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -17,7 +17,7 @@ import net.minecraftforge.items.ItemStackHandler;
  * Note that the above only applies to operations on the wrapper, the backing handlers are not restricted. For persistence, either the backing {@link ItemStackHandler}s can be saved, or the wrapper
  * itself.
  */
-public class ItemStackHandlerWrapper implements IItemHandler, IItemHandlerModifiable, INBTSerializable<CompoundNBT> {
+public class ItemStackHandlerWrapper implements IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound> {
 
   public static final String NBT_INPUT = "Input";
   public static final String NBT_OUTPUT = "Output";
@@ -88,17 +88,17 @@ public class ItemStackHandlerWrapper implements IItemHandler, IItemHandlerModifi
   }
 
   @Override
-  public CompoundNBT serializeNBT() {
-    CompoundNBT cmp = new CompoundNBT();
-    cmp.put(NBT_INPUT, input.serializeNBT());
-    cmp.put(NBT_OUTPUT, output.serializeNBT());
+  public NBTTagCompound serializeNBT() {
+    NBTTagCompound cmp = new NBTTagCompound();
+    cmp.setTag(NBT_INPUT, input.serializeNBT());
+    cmp.setTag(NBT_OUTPUT, output.serializeNBT());
     return cmp;
   }
 
   @Override
-  public void deserializeNBT(CompoundNBT nbt) {
-    input.deserializeNBT(nbt.getCompound(NBT_INPUT));
-    output.deserializeNBT(nbt.getCompound(NBT_OUTPUT));
+  public void deserializeNBT(NBTTagCompound nbt) {
+    input.deserializeNBT(nbt.getCompoundTag(NBT_INPUT));
+    output.deserializeNBT(nbt.getCompoundTag(NBT_OUTPUT));
   }
 
   @FunctionalInterface

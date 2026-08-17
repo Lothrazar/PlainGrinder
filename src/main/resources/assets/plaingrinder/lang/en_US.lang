@@ -1,0 +1,15 @@
+item.dust_gold.name=Gold Dust
+item.dust_diamond.name=Diamond Dust
+item.dust_coal.name=Coal Dust
+item.dust_lapis.name=Lapis Dust
+item.dust_iron.name=Iron Dust
+item.dust_quartz.name=Quartz Dust
+item.dust_charcoal.name=Charcoal Dust
+item.dust_emerald.name=Emerald Dust
+
+tile.grinder.name=Plain Grinder
+tile.grinder.tooltip=Place below a Handle and fill with ore
+tile.handle.name=Grinder Handle
+tile.handle.tooltip=Turn this while on top of a Grinder
+
+itemGroup.plaingrinder=Plain Grinder

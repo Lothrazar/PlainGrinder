@@ -1,50 +1,84 @@
 package com.lothrazar.plaingrinder;
 
 import com.lothrazar.plaingrinder.data.GrindEvents;
-import com.lothrazar.plaingrinder.grind.GrindRecipe;
-import com.lothrazar.plaingrinder.grind.ModRecipeType;
-import com.lothrazar.plaingrinder.grind.ScreenGrinder;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.registry.Registry;
+import com.lothrazar.plaingrinder.grind.ContainerGrinder;
+import com.lothrazar.plaingrinder.grind.GuiGrinder;
+import com.lothrazar.plaingrinder.grind.TileGrinder;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.IFuelHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(ModMain.MODID)
-public class ModMain {
+@Mod(modid = ModMain.MODID, name = "Plain Grinder", version = "@VERSION@",
+    certificateFingerprint = "@FINGERPRINT@",
+    updateJSON = "https://raw.githubusercontent.com/Lothrazar/PlainGrinder/trunk/1.12/update.json",
+    acceptedMinecraftVersions = "[1.12,1.13)")
+public class ModMain implements IGuiHandler {
 
   public static final String MODID = "plaingrinder";
   public static final Logger LOGGER = LogManager.getLogger();
+  public static final int GUI_GRINDER = 0;
+  @Instance(ModMain.MODID)
+  public static ModMain instance;
 
-  public ModMain() {
-    ConfigManager.setup();
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
-    //https://github.com/Minecraft-Forge-Tutorials/Custom-Json-Recipes/blob/master/src/main/java/net/darkhax/customrecipeexample/CustomRecipesMod.java
-    FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(IRecipeSerializer.class, ModMain::registerRecipeSerializers);
-  }
-
-  //todo: mekanism and thermal built in support
-  //3x ores in mystical ag - direct recipes
-  //ex nihilo ore chunks
-  private void setup(final FMLCommonSetupEvent event) {
-    //now all blocks/items exist  
+  @EventHandler
+  public void preInit(FMLPreInitializationEvent event) {
+    Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+    ConfigManager.setup(config);
+    MinecraftForge.EVENT_BUS.register(ModRegistry.class);
     MinecraftForge.EVENT_BUS.register(new GrindEvents());
   }
 
-  private void setupClient(final FMLClientSetupEvent event) {
-    //for client side only setup
-    ScreenManager.registerFactory(ModRegistry.CTR_GRINDER, ScreenGrinder::new);
+  @EventHandler
+  public void init(FMLInitializationEvent event) {
+    NetworkRegistry.INSTANCE.registerGuiHandler(this, this);
+    GameRegistry.registerFuelHandler(new IFuelHandler() {
+
+      @Override
+      public int getBurnTime(ItemStack fuel) {
+        if (!fuel.isEmpty() && fuel.getItem() instanceof ItemDustBurnable) {
+          return ItemDustBurnable.BURN_TIME;
+        }
+        return 0;
+      }
+    });
   }
 
-  public static void registerRecipeSerializers(Register<IRecipeSerializer<?>> event) {
-    Registry.register(Registry.RECIPE_TYPE, ModRecipeType.GRIND.toString(), ModRecipeType.GRIND);
-    event.getRegistry().register(GrindRecipe.SERIALIZER);
+  @Override
+  public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
+    if (id == GUI_GRINDER) {
+      TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
+      if (te instanceof TileGrinder) {
+        return new ContainerGrinder(player.inventory, (TileGrinder) te);
+      }
+    }
+    return null;
+  }
+
+  @Override
+  public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
+    if (id == GUI_GRINDER) {
+      TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
+      if (te instanceof TileGrinder) {
+        InventoryPlayer inv = player.inventory;
+        return new GuiGrinder(new ContainerGrinder(inv, (TileGrinder) te), inv);
+      }
+    }
+    return null;
   }
 }

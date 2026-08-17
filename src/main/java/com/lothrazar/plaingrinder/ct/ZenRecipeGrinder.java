@@ -1,41 +1,33 @@
 package com.lothrazar.plaingrinder.ct;
 
-import com.blamejared.crafttweaker.api.CraftTweakerAPI;
-import com.blamejared.crafttweaker.api.annotations.ZenRegister;
-import com.blamejared.crafttweaker.api.item.IIngredient;
-import com.blamejared.crafttweaker.api.item.IItemStack;
-import com.blamejared.crafttweaker.api.managers.IRecipeManager;
-import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 import com.lothrazar.plaingrinder.ModMain;
 import com.lothrazar.plaingrinder.grind.GrindRecipe;
-import com.lothrazar.plaingrinder.grind.ModRecipeType;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.ResourceLocation;
-import org.openzen.zencode.java.ZenCodeType;
+import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Optional;
+import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenMethod;
 
-@SuppressWarnings("rawtypes")
+@ZenClass("mods.plaingrinder.Grinder")
 @ZenRegister
-@ZenCodeType.Name("mods.plaingrinder.grinder")
-public class ZenRecipeGrinder implements IRecipeManager {
+public class ZenRecipeGrinder {
 
-  @Override
-  public IRecipeType getRecipeType() {
-    return ModRecipeType.GRIND;
+  @Optional.Method(modid = "crafttweaker")
+  @ZenMethod
+  public static void addRecipe(IIngredient input, IItemStack output) {
+    ItemStack outputStack = CraftTweakerMC.getItemStack(output);
+    GrindRecipe.addRecipe(CraftTweakerMC.getIngredient(input), outputStack);
+    ModMain.LOGGER.info("crafttweaker: Recipe loaded grinder: " + outputStack);
   }
 
-  @ZenCodeType.Method
-  public void addRecipe(String name, IIngredient input, IItemStack output) {
-    name = fixRecipeName(name);
-    GrindRecipe m = new GrindRecipe(new ResourceLocation("crafttweaker", name),
-        input.asVanillaIngredient(),
-        output.asImmutable().getInternal());
-    CraftTweakerAPI.apply(new ActionAddRecipe(this, m, ""));
-    ModMain.LOGGER.info("crafttweaker: Recipe loaded " + m.getId().toString());
-  }
-
-  @ZenCodeType.Method
-  public void removeRecipe(String name) {
-    removeByName(name);
-    ModMain.LOGGER.info("crafttweaker: Recipe removed " + name);
+  @Optional.Method(modid = "crafttweaker")
+  @ZenMethod
+  public static void removeRecipe(IItemStack output) {
+    ItemStack outputStack = CraftTweakerMC.getItemStack(output);
+    GrindRecipe.removeRecipesForOutput(outputStack);
+    ModMain.LOGGER.info("crafttweaker: Recipe removed grinder: " + outputStack);
   }
 }

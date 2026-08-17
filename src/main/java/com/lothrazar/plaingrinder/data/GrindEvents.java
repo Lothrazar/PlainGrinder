@@ -2,44 +2,37 @@ package com.lothrazar.plaingrinder.data;
 
 import com.lothrazar.plaingrinder.ModRegistry;
 import com.lothrazar.plaingrinder.grind.TileGrinder;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class GrindEvents {
 
   @SubscribeEvent
   public void onHit(PlayerInteractEvent.RightClickBlock event) {
-    PlayerEntity player = event.getPlayer();
+    EntityPlayer player = event.getEntityPlayer();
     ItemStack held = player.getHeldItem(event.getHand());
     World world = player.getEntityWorld();
-    if (!held.isEmpty() || event.getHand() == Hand.OFF_HAND) {
+    if (!held.isEmpty() || event.getHand() == EnumHand.OFF_HAND) {
       return;
     }
     BlockPos pos = event.getPos();
-    BlockState state = world.getBlockState(pos);
+    IBlockState state = world.getBlockState(pos);
     if (state.getBlock() == ModRegistry.B_HANDLE) {
-      //unmapped rotate function
-      //    state = state.func_235896_a_(BlockStateProperties.HORIZONTAL_FACING);
-      // problem 1: its too fast
-      //problem 2: should be 4x4 base to centralize
-      BlockState below = world.getBlockState(pos.down());
+      IBlockState below = world.getBlockState(pos.down());
       if (below.getBlock() == ModRegistry.B_GRINDER) {
-        //do the thing
         TileGrinder tile = (TileGrinder) world.getTileEntity(pos.down());
         if (tile.canGrind()) {
-          //can we?
-          // and state
           if (world.isRemote == false) {
-            Direction old = state.get(BlockStateProperties.HORIZONTAL_FACING);
-            world.setBlockState(pos, state.with(BlockStateProperties.HORIZONTAL_FACING, old.rotateYCCW()));
+            EnumFacing old = state.getValue(BlockHorizontal.FACING);
+            world.setBlockState(pos, state.withProperty(BlockHorizontal.FACING, old.rotateYCCW()));
             tile.incrementGrind();
           }
           player.swingArm(event.getHand());
