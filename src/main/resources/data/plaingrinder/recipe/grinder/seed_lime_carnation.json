@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "cyclic:flower_purple_tulip"
-  },
+  "ingredient": "cyclic:flower_purple_tulip",
   "result": {
     "id": "flowerseedscyclic:purple_tulip_seed",
     "count": 2

@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:blue_orchid"
-  },
+  "ingredient": "minecraft:blue_orchid",
   "result": {
     "id": "flowerseeds:blue_orchid_seed",
     "count": 2

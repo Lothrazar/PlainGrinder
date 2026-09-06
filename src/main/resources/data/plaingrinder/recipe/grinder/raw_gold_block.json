@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:raw_gold_block"
-  },
+  "ingredient": "minecraft:raw_gold_block",
   "result": {
     "id": "plaingrinder:dust_gold",
     "count": 18

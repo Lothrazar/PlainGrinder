@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:orange_tulip"
-  },
+  "ingredient": "minecraft:orange_tulip",
   "result": {
     "id": "flowerseeds:orange_tulip_seed",
     "count": 2

@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:oxeye_daisy"
-  },
+  "ingredient": "minecraft:oxeye_daisy",
   "result": {
     "id": "flowerseeds:oxeye_daisy_seed",
     "count": 2

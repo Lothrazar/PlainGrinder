@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:wheat"
-  },
+  "ingredient": "minecraft:wheat",
   "result": {
     "id": "minecraft:wheat_seeds",
     "count": 1

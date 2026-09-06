@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "cyclic:flower_lime_carnation"
-  },
+  "ingredient": "cyclic:flower_lime_carnation",
   "result": {
     "id": "flowerseedscyclic:lime_carnation_seed",
     "count": 2

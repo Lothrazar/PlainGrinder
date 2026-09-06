@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:bone"
-  },
+  "ingredient": "minecraft:bone",
   "result": {
     "id": "minecraft:bone_meal",
     "count": 4

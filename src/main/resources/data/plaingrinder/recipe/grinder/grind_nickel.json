@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "tag": "c:ores/nickel"
-  },
+  "ingredient": "#c:ores/nickel",
   "result": {
     "id": "thermal:nickel_dust",
     "count": 2
@@ -11,8 +9,8 @@
     {
       "values": [
         {
-          "item": "thermal:nickel_dust",
-          "type": "neoforge:item_exists"
+          "type": "neoforge:registered",
+          "value": "thermal:nickel_dust"
         }
       ],
       "type": "neoforge:and"

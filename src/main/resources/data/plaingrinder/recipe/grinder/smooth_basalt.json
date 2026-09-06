@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:smooth_basalt"
-  },
+  "ingredient": "minecraft:smooth_basalt",
   "result": {
     "id": "minecraft:basalt",
     "count": 1

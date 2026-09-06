@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:decorated_pot"
-  },
+  "ingredient": "minecraft:decorated_pot",
   "result": {
     "id": "minecraft:brick",
     "count": 2

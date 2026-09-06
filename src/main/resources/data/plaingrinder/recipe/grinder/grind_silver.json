@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "tag": "c:ores/silver"
-  },
+  "ingredient": "#c:ores/silver",
   "result": {
     "id": "thermal:silver_dust",
     "count": 2
@@ -11,8 +9,8 @@
     {
       "values": [
         {
-          "item": "thermal:silver_dust",
-          "type": "neoforge:item_exists"
+          "type": "neoforge:registered",
+          "value": "thermal:silver_dust"
         }
       ],
       "type": "neoforge:and"

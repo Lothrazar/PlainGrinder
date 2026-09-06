@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:polished_blackstone"
-  },
+  "ingredient": "minecraft:polished_blackstone",
   "result": {
     "id": "minecraft:blackstone",
     "count": 1

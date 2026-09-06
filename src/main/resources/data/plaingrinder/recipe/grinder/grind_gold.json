@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "tag": "c:ores/gold"
-  },
+  "ingredient": "#c:ores/gold",
   "result": {
     "id": "plaingrinder:dust_gold",
     "count": 2

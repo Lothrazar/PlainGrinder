@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "tag": "c:ores/lapis"
-  },
+  "ingredient": "#c:ores/lapis",
   "result": {
     "id": "plaingrinder:dust_lapis",
     "count": 3

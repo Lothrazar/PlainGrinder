@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "tag": "c:ingots/netherite"
-  },
+  "ingredient": "#c:ingots/netherite",
   "result": {
     "id": "mekanism:dust_netherite",
     "count": 1
@@ -15,8 +13,8 @@
           "type": "neoforge:mod_loaded"
         },
         {
-          "item": "mekanism:dust_netherite",
-          "type": "neoforge:item_exists"
+          "type": "neoforge:registered",
+          "value": "mekanism:dust_netherite"
         }
       ],
       "type": "neoforge:and"

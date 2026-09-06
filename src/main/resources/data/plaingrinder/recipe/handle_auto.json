@@ -1,4 +1,4 @@
-﻿{
+{
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "ti ",
@@ -6,12 +6,8 @@
     " t "
   ],
   "key": {
-    "t": {
-      "item": "minecraft:deepslate"
-    },
-    "i": {
-      "tag": "c:ingots/copper"
-    }
+    "t": "minecraft:deepslate",
+    "i": "#c:ingots/copper"
   },
   "result": {
     "id": "plaingrinder:handle_auto",

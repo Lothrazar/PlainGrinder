@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "tag": "c:ores/sulfur"
-  },
+  "ingredient": "#c:ores/sulfur",
   "result": {
     "id": "thermal:sulfur_dust",
     "count": 2
@@ -11,8 +9,8 @@
     {
       "values": [
         {
-          "item": "thermal:sulfur_dust",
-          "type": "neoforge:item_exists"
+          "type": "neoforge:registered",
+          "value": "thermal:sulfur_dust"
         }
       ],
       "type": "neoforge:and"

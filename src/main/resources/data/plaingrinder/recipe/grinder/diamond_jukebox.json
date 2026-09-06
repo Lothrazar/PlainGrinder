@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:jukebox"
-  },
+  "ingredient": "minecraft:jukebox",
   "result": {
     "id": "minecraft:diamond",
     "count": 1

@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:soul_soil"
-  },
+  "ingredient": "minecraft:soul_soil",
   "result": {
     "id": "minecraft:coarse_dirt",
     "count": 1

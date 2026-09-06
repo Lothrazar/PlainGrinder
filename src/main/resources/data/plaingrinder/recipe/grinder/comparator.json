@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:comparator"
-  },
+  "ingredient": "minecraft:comparator",
   "result": {
     "id": "minecraft:quartz",
     "count": 1

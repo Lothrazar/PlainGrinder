@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:azure_bluet"
-  },
+  "ingredient": "minecraft:azure_bluet",
   "result": {
     "id": "flowerseeds:azure_bluet_seed",
     "count": 2

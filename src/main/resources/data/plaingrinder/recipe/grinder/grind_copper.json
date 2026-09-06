@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "tag": "c:ores/copper"
-  },
+  "ingredient": "#c:ores/copper",
   "result": {
     "id": "plaingrinder:dust_copper",
     "count": 2

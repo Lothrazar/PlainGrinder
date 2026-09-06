@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:melon"
-  },
+  "ingredient": "minecraft:melon",
   "result": {
     "id": "minecraft:melon_seeds",
     "count": 16

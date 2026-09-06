@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "cyclic:flower_cyan"
-  },
+  "ingredient": "cyclic:flower_cyan",
   "result": {
     "id": "flowerseedscyclic:cyan_rose_seed",
     "count": 2

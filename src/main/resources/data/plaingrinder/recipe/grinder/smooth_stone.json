@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:smooth_stone"
-  },
+  "ingredient": "minecraft:smooth_stone",
   "result": {
     "id": "minecraft:stone",
     "count": 1

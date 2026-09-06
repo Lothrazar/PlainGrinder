@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:rail"
-  },
+  "ingredient": "minecraft:rail",
   "result": {
     "id": "minecraft:iron_nugget",
     "count": 2

@@ -1,9 +1,9 @@
-﻿{
+{
   "type": "minecraft:blasting",
-  "ingredient": {
-    "tag": "c:dusts/diamond"
+  "ingredient": "#c:dusts/diamond",
+  "result": {
+    "id": "minecraft:diamond"
   },
-  "result": { "id": "minecraft:diamond" },
   "experience": 0.7,
   "cookingtime": 100
 }

@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:cornflower"
-  },
+  "ingredient": "minecraft:cornflower",
   "result": {
     "id": "flowerseeds:cornflower_seed",
     "count": 2

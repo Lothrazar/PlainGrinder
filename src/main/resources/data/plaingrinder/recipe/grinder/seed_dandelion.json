@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:dandelion"
-  },
+  "ingredient": "minecraft:dandelion",
   "result": {
     "id": "flowerseeds:dandelion_seed",
     "count": 2

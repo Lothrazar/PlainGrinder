@@ -1,9 +1,9 @@
-﻿{
+{
   "type": "minecraft:smelting",
-  "ingredient": {
-    "tag": "c:dusts/copper"
+  "ingredient": "#c:dusts/copper",
+  "result": {
+    "id": "minecraft:copper_ingot"
   },
-  "result": { "id": "minecraft:copper_ingot" },
   "experience": 1.0,
   "cookingtime": 200
 }

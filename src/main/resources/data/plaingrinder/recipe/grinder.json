@@ -1,4 +1,4 @@
-﻿{
+{
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "sis",
@@ -6,15 +6,9 @@
     "sss"
   ],
   "key": {
-    "s": {
-      "item": "minecraft:smooth_stone"
-    },
-    "i": {
-      "tag": "c:nuggets/iron"
-    },
-    "g": {
-      "item": "minecraft:grindstone"
-    }
+    "s": "minecraft:smooth_stone",
+    "i": "#c:nuggets/iron",
+    "g": "minecraft:grindstone"
   },
   "result": {
     "id": "plaingrinder:grinder",

@@ -1,9 +1,9 @@
-﻿{
+{
   "type": "minecraft:smelting",
-  "ingredient": {
-    "tag": "c:dusts/quartz"
+  "ingredient": "#c:dusts/quartz",
+  "result": {
+    "id": "minecraft:quartz"
   },
-  "result": { "id": "minecraft:quartz" },
   "experience": 1.0,
   "cookingtime": 200
 }

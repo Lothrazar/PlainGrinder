@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:beetroot"
-  },
+  "ingredient": "minecraft:beetroot",
   "result": {
     "id": "minecraft:beetroot_seeds",
     "count": 2

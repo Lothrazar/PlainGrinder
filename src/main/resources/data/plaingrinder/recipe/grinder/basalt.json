@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:basalt"
-  },
+  "ingredient": "minecraft:basalt",
   "result": {
     "id": "minecraft:sand",
     "count": 1

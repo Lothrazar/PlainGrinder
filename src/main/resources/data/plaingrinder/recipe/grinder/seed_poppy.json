@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:poppy"
-  },
+  "ingredient": "minecraft:poppy",
   "result": {
     "id": "flowerseeds:poppy_seed",
     "count": 2

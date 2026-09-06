@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "tag": "c:ores/osmium"
-  },
+  "ingredient": "#c:ores/osmium",
   "result": {
     "id": "mekanism:dust_osmium",
     "count": 2
@@ -15,8 +13,8 @@
           "type": "neoforge:mod_loaded"
         },
         {
-          "item": "mekanism:dust_osmium",
-          "type": "neoforge:item_exists"
+          "type": "neoforge:registered",
+          "value": "mekanism:dust_osmium"
         }
       ],
       "type": "neoforge:and"

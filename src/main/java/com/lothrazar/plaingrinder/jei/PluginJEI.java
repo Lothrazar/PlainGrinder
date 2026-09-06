@@ -12,9 +12,8 @@ import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.client.Minecraft;
+import mezz.jei.common.Internal;
 import net.minecraft.resources.Identifier;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemStack;
 
 @JeiPlugin
@@ -38,18 +37,15 @@ public class PluginJEI implements IModPlugin {
     registry.addRecipeCategories(new GrinderRecipeCategory(guiHelper));
   }
 
-  // Full Recipe objects are no longer synced to the client at all (only recipe-book display data is,
-  // via ClientRecipeContainer). Reading the local integrated server's RecipeManager directly is the only
-  // way to get real GrindRecipe instances here; this only works in singleplayer/LAN-hosted worlds, so a
-  // JEI-connected dedicated-server client simply won't see this category populated.
+
+  // Full Recipe objects are no longer synced to the client via vanilla's own protocol (only recipe-book
+  // display data is). JEI fills that gap itself: when JEI is installed on the server with a matching mod
+  // loader, it syncs the full RecipeManager - every recipe type, not just vanilla's - into a client-side
+  // RecipeMap.
+  // TODO: probably change this if Internal.getClientSyncedRecipes ever gets access in jei's-API
   @Override
   public void registerRecipes(IRecipeRegistration registry) {
-    MinecraftServer server = Minecraft.getInstance().getSingleplayerServer();
-    if (server == null) {
-      return;
-    }
-    List<GrindRecipe> recipes = server.getRecipeManager()
-        .recipeMap()
+    List<GrindRecipe> recipes = Internal.getClientSyncedRecipes()
         .byType(RegistryGrinder.GRINDER_RECIPE_TYPE.get())
         .stream()
         .map(holder -> holder.value())

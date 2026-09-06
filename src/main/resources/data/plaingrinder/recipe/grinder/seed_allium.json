@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:allium"
-  },
+  "ingredient": "minecraft:allium",
   "result": {
     "id": "flowerseeds:allium_seed",
     "count": 2

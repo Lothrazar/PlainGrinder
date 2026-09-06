@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:glowstone"
-  },
+  "ingredient": "minecraft:glowstone",
   "result": {
     "id": "minecraft:glowstone_dust",
     "count": 4
@@ -11,11 +9,11 @@
     {
       "values": [
         {
-          "item": "minecraft:glowstone",
-          "type": "neoforge:item_exists"
+          "type": "neoforge:registered",
+          "value": "minecraft:glowstone"
         },
         {
-          "type": "neoforge:true"
+          "type": "neoforge:always"
         }
       ],
       "type": "neoforge:and"

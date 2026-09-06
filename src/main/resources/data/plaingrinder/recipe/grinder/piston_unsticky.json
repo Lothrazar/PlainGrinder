@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:sticky_piston"
-  },
+  "ingredient": "minecraft:sticky_piston",
   "result": {
     "id": "minecraft:piston",
     "count": 1

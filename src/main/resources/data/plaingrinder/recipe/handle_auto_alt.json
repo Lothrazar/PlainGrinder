@@ -1,4 +1,4 @@
-﻿{
+{
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "ti ",
@@ -6,12 +6,8 @@
     " t "
   ],
   "key": {
-    "t": {
-      "item": "minecraft:deepslate_bricks"
-    },
-    "i": {
-      "tag": "c:nuggets/copper"
-    }
+    "t": "minecraft:deepslate_bricks",
+    "i": "#c:nuggets/copper"
   },
   "result": {
     "id": "plaingrinder:handle_auto",
@@ -20,9 +16,8 @@
   "neoforge:conditions": [
     {
       "type": "neoforge:not",
-      "value": 
-      {
-       "tag": "c:nuggets/copper",
+      "value": {
+        "tag": "c:nuggets/copper",
         "type": "neoforge:tag_empty"
       }
     }

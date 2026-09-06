@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:pumpkin"
-  },
+  "ingredient": "minecraft:pumpkin",
   "result": {
     "id": "minecraft:pumpkin_seeds",
     "count": 6

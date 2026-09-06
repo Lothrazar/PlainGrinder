@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "tag": "minecraft:wool"
-  },
+  "ingredient": "#minecraft:wool",
   "result": {
     "id": "minecraft:string",
     "count": 2
@@ -10,9 +8,8 @@
   "neoforge:conditions": [
     {
       "type": "neoforge:not",
-      "value": 
-      {
-       "tag": "minecraft:wool",
+      "value": {
+        "tag": "minecraft:wool",
         "type": "neoforge:tag_empty"
       }
     }

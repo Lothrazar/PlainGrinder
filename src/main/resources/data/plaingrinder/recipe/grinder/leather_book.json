@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:book"
-  },
+  "ingredient": "minecraft:book",
   "result": {
     "id": "minecraft:leather",
     "count": 1

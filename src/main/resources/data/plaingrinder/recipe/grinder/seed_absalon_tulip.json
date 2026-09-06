@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "cyclic:flower_absalon_tulip"
-  },
+  "ingredient": "cyclic:flower_absalon_tulip",
   "result": {
     "id": "flowerseedscyclic:absalon_tulip_seed",
     "count": 2

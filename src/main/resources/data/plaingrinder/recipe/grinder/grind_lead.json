@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "tag": "c:ores/lead"
-  },
+  "ingredient": "#c:ores/lead",
   "result": {
     "id": "mekanism:dust_lead",
     "count": 2
@@ -15,8 +13,8 @@
           "type": "neoforge:mod_loaded"
         },
         {
-          "item": "mekanism:dust_lead",
-          "type": "neoforge:item_exists"
+          "type": "neoforge:registered",
+          "value": "mekanism:dust_lead"
         }
       ],
       "type": "neoforge:and"

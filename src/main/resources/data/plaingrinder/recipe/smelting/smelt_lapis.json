@@ -1,9 +1,9 @@
-﻿{
+{
   "type": "minecraft:smelting",
-  "ingredient": {
-    "tag": "c:dusts/lapis"
+  "ingredient": "#c:dusts/lapis",
+  "result": {
+    "id": "minecraft:lapis_lazuli"
   },
-  "result": { "id": "minecraft:lapis_lazuli" },
   "experience": 1.0,
   "cookingtime": 200
 }

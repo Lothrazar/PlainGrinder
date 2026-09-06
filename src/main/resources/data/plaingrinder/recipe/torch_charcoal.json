@@ -1,16 +1,12 @@
-﻿{
+{
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "c ",
     "s "
   ],
   "key": {
-    "c": {
-      "tag": "c:dusts/charcoal"
-    },
-    "s": {
-    	"item": "minecraft:stick"
-    }
+    "c": "#c:dusts/charcoal",
+    "s": "minecraft:stick"
   },
   "result": {
     "id": "minecraft:torch",

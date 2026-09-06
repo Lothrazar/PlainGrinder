@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "tag": "c:ores/quartz"
-  },
+  "ingredient": "#c:ores/quartz",
   "result": {
     "id": "plaingrinder:dust_quartz",
     "count": 4

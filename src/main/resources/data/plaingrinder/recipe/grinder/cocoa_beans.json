@@ -1,8 +1,6 @@
-﻿{
+{
   "type": "plaingrinder:grinder",
-  "input": {
-    "item": "minecraft:cocoa_beans"
-  },
+  "ingredient": "minecraft:cocoa_beans",
   "result": {
     "id": "minecraft:brown_dye",
     "count": 3
